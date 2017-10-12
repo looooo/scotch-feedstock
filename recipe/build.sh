@@ -40,16 +40,11 @@ export CCP=mpicc
 export CCD=${CCP}
 
 export HYDRA_LAUNCHER=fork
-export MPIEXEC=mpiexec
+export MPIEXEC="${RECIPE_DIR}/mpiexec.sh"
+
 if [[ "$(uname)" == "Linux" ]]; then
   # skip mpiexec tests on Linux due to conda-forge bug:
   # https://github.com/conda-forge/conda-smithy/pull/337
-  export MPIEXEC="echo SKIPPING $MPIEXEC"
-fi
-if [[ "$(uname)" == "Darwin" ]]; then
-  # the following test fails with "write error"
-  # on Travis-CI during 'make ptcheck'
-  # $ mpiexec -n 4 ./test_scotch_dgraph_redist data/bump.grf
   export MPIEXEC="echo SKIPPING $MPIEXEC"
 fi
 

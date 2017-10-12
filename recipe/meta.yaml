@@ -31,11 +31,13 @@ requirements:
  run:
   - zlib 1.2.*
   {% if name == 'ptscotch' %}
-  - scotch
+  - scotch {{version}}
   - mpich 3.2.*
   {% endif %}
 
 test:
+  requires:
+    - toolchain
   commands:
     {% if name == 'scotch' %}
     - test -f "${PREFIX}/lib/libscotch.a"
