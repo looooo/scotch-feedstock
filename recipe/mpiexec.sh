@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 # pipe stdout, stderr through cat to avoid O_NONBLOCK issues
-mpiexec $@ 2>&1 | cat
+echo '' | mpiexec $@ 2>&1 | cat
