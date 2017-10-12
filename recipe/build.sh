@@ -42,12 +42,6 @@ export CCD=${CCP}
 export HYDRA_LAUNCHER=fork
 export MPIEXEC="${RECIPE_DIR}/mpiexec.sh"
 
-if [[ "$(uname)" == "Linux" ]]; then
-  # skip mpiexec tests on Linux due to conda-forge bug:
-  # https://github.com/conda-forge/conda-smithy/pull/337
-  export MPIEXEC="echo SKIPPING $MPIEXEC"
-fi
-
 # build
 cd src/
 make ptesmumps 2>&1 | tee make.log

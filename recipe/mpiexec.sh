@@ -1,7 +1,4 @@
 #!/bin/bash
-mpiexec $@
-ec=$?
-
-# fix O_NONBLOCK
-python $(dirname "$0")/no-nonblock.py
-exit $ec
+set -e
+# pipe stdout, stderr through cat to avoid O_NONBLOCK issues
+mpiexec $@ 2>&1 | cat
