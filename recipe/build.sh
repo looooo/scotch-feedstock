@@ -28,7 +28,10 @@ cp lib/* $PREFIX/lib/
 mkdir -p $PREFIX/bin/
 cp bin/* $PREFIX/bin/
 mkdir -p $PREFIX/include/
-cp include/* $PREFIX/include/
+# avoid conflicts with the real metis.h
+mkdir -p include/scotch
+mv include/metis.h include/scotch/
+cp -rv include/* $PREFIX/include/
 
 fi # scotch
 
@@ -54,6 +57,8 @@ mkdir -p $PREFIX/bin/
 cp bin/dg* $PREFIX/bin/
 mkdir -p $PREFIX/include/
 cp include/ptscotch*.h $PREFIX/include/
-cp include/parmetis.h  $PREFIX/include/
+# avoid conflicts with the real parmetis.h
+mkdir -p $PREFIX/include/scotch
+cp include/parmetis.h  $PREFIX/include/scotch/
 
 fi # ptscotch

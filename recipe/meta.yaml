@@ -1,4 +1,4 @@
-{% set build = 4 %}
+{% set build = 5 %}
 {% set version = "6.0.4" %}
 {% set name = "ptscotch" %}
 {% set md5 = "d58b825eb95e1db77efe8c6ff42d329f" %}
@@ -47,7 +47,8 @@ test:
     - test -f "${PREFIX}/lib/libesmumps.a"
     - test -f "${PREFIX}/include/scotch.h"
     - test -f "${PREFIX}/include/scotchf.h"
-    - test -f "${PREFIX}/include/metis.h"
+    - test -f "${PREFIX}/include/scotch/metis.h"
+    - test ! -f "${PREFIX}/include/metis.h"
     - test -f "${PREFIX}/include/esmumps.h"
     - mord -V
     - gmap -V
@@ -63,7 +64,8 @@ test:
     - test -f "${PREFIX}/lib/libptesmumps.a"
     - test -f "${PREFIX}/include/ptscotch.h"
     - test -f "${PREFIX}/include/ptscotchf.h"
-    - test -f "${PREFIX}/include/parmetis.h"
+    - test -f "${PREFIX}/include/scotch/parmetis.h"
+    - test ! -f "${PREFIX}/include/parmetis.h"
     - test -f "${PREFIX}/include/esmumps.h"
     - dggath -V
     - dgmap -V
