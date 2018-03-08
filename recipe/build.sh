@@ -42,7 +42,6 @@ then
 export CCP=mpicc
 export CCD=${CCP}
 
-export HYDRA_LAUNCHER=fork
 export MPIEXEC="${RECIPE_DIR}/mpiexec.sh"
 
 # build
