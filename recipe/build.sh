@@ -48,7 +48,7 @@ export MPIEXEC="${RECIPE_DIR}/mpiexec.sh"
 # build
 cd src/
 make ptesmumps 2>&1 | tee make.log
-make ptcheck EXECP="$MPIEXEC -n 4" 2>&1 | tee check.log
+make ptcheck EXECP="$MPIEXEC -n 2" 2>&1 | tee check.log
 cd ..
 # install
 mkdir -p $PREFIX/lib/
