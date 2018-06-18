@@ -7,6 +7,7 @@ export LDFLAGS="${LDFLAGS} -L${PREFIX}/lib -lz -lm -pthread"
 
 if [[ $(uname) == "Darwin" ]]; then
   export CFLAGS="${CFLAGS} -DCOMMON_PTHREAD_BARRIER -DCOMMON_TIMING_OLD"
+  export LDFLAGS="-Wl,-rpath,${PREFIX}/lib ${LDFLAGS}"
 else
   export LDFLAGS="${LDFLAGS} -lrt"
 fi
@@ -47,7 +48,7 @@ export MPIEXEC="${RECIPE_DIR}/mpiexec.sh"
 # build
 cd src/
 make ptesmumps 2>&1 | tee make.log
-make ptcheck EXECP="$MPIEXEC -n 4" 2>&1 | tee check.log
+make ptcheck EXECP="$MPIEXEC -n 2" 2>&1 | tee check.log
 cd ..
 # install
 mkdir -p $PREFIX/lib/

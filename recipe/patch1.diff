@@ -1,11 +1,19 @@
-diff -up a/src/libscotch/library.h b/src/libscotch/library.h
---- a/src/libscotch/library.h	2015-03-01 12:14:02.000000000 +0300
-+++ b/src/libscotch/library.h	2017-10-08 14:39:38.439477780 +0300
-@@ -268,6 +268,7 @@ SCOTCH_Ordering *           SCOTCH_order
+diff -up ./src/libscotch/parser.c.orig ./src/libscotch/parser.c
+--- a/src/libscotch/parser.c	2018-06-18 01:41:24.677521316 +0300
++++ b/src/libscotch/parser.c	2018-06-18 01:44:12.975183090 +0300
+@@ -111,13 +111,13 @@ const char * const          string)
+   }
+ #endif /* SCOTCH_DEBUG_PARSER1 */
  
- void                        SCOTCH_randomReset  (void);
- void                        SCOTCH_randomSeed   (SCOTCH_Num);
-+void                        SCOTCH_randomProc   (int);
+-#ifdef COMMON_PTHREAD_MEMORY
++#ifdef SCOTCH_PTHREAD
+   if (muteflag != 0) {                            /* Unsafe code with respect to race conditions but should work; portable TSL needed */
+     muteflag = 0;
+     pthread_mutex_init (&mutelocdat, NULL);       /* Initialize local mutex */
+   }
+   pthread_mutex_lock (&mutelocdat);               /* Lock local mutex */
+-#endif /* COMMON_PTHREAD_MEMORY */
++#endif /* SCOTCH_PTHREAD */
  
- SCOTCH_Strat *              SCOTCH_stratAlloc   (void);
- int                         SCOTCH_stratInit    (SCOTCH_Strat * const);
+   o = stratParserParse (strattab, string);        /* Parse strategy string */
+ 

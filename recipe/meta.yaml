@@ -1,9 +1,7 @@
-{% set build = 6 %}
-{% set version = "6.0.4" %}
 {% set name = "ptscotch" %}
-{% set md5 = "d58b825eb95e1db77efe8c6ff42d329f" %}
-{% set mpi = os.environ.get('MPI_VARIANT', 'mpich') %}
-{% set mpi_version = {'mpich': '3.2.*', 'openmpi': '3.0.*'}[mpi] %}
+{% set build = 0 %}
+{% set version = "6.0.5" %}
+{% set sha256 = "302c200e0fd4f80ae8992f1c26ad47c734c463bd040b8b7b64469bdb222fe2db" %}
 
 package:
   name: {{ name }}
@@ -11,11 +9,10 @@ package:
 
 source:
   fn: {{ name }}-{{ version }}.tar.gz
-  md5: {{ md5 }}
   url: https://gforge.inria.fr/frs/download.php/latestfile/298/scotch_{{ version }}.tar.gz
+  sha256: {{ sha256 }}
   patches:
     - patch1.diff
-    - patch2.diff
 
 build:
   skip: true  # [win]
@@ -28,13 +25,13 @@ requirements:
   - flex 2.6.0
   - zlib 1.2.*
   {% if name == 'ptscotch' %}
-  - {{ mpi }} {{ mpi_version }}
+  - {{ mpi }}
   {% endif %}
  run:
   - zlib 1.2.*
   {% if name == 'ptscotch' %}
   - scotch {{version}}
-  - {{ mpi }} {{ mpi_version }}
+  - {{ mpi }}
   {% endif %}
 
 test:

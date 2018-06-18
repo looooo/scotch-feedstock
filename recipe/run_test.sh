@@ -1,3 +1,6 @@
+#!/bin/bash
+set -xeuo pipefail
+
 if [[ "${PKG_NAME}" == "scotch" ]]
 then
 
@@ -14,7 +17,8 @@ fi # scotch
 if [[ "${PKG_NAME}" == "ptscotch" ]]
 then
 
-export MPIEXEC=${RECIPE_DIR}/mpiexec.sh
+MPIEXEC="${RECIPE_DIR}/mpiexec.sh"
+mpiexec() { $MPIEXEC $@; }
 
 # These `dg*` tools do not call MPI_Finalize() in some cases and then
 # Open MPI's mpiexec complain about that. Let them run in singleton
@@ -28,7 +32,11 @@ dgpart -V
 dgscat -V
 dgtst -V
 
-mpic++ $CXXFLAGS "-I$PREFIX/include" "-L$PREFIX/lib" "${RECIPE_DIR}/test/test_ptscotch.cxx" -o test_ptscotch -DSCOTCH_PTSCOTCH -lptscotch -lptscotcherr
-$MPIEXEC -n 1 ./test_ptscotch
+if [[ $(uname) == "Darwin" ]]; then
+  export LDFLAGS="-Wl,-rpath,${PREFIX}/lib ${LDFLAGS}"
+fi
+
+mpic++ $LDFLAGS $CXXFLAGS "-I$PREFIX/include" "-L$PREFIX/lib" "${RECIPE_DIR}/test/test_ptscotch.cxx" -o test_ptscotch -DSCOTCH_PTSCOTCH -lptscotch -lptscotcherr
+mpiexec -n 1 ./test_ptscotch
 
 fi # ptscotch
