@@ -7,6 +7,7 @@ export LDFLAGS="${LDFLAGS} -L${PREFIX}/lib -lz -lm -pthread"
 
 if [[ $(uname) == "Darwin" ]]; then
   export CFLAGS="${CFLAGS} -DCOMMON_PTHREAD_BARRIER -DCOMMON_TIMING_OLD"
+  export LDFLAGS="-Wl,-rpath,${PREFIX}/lib ${LDFLAGS}"
 else
   export LDFLAGS="${LDFLAGS} -lrt"
 fi
