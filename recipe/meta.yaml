@@ -48,7 +48,6 @@ outputs:
           'esmumps',
         ]
         %}
-        - test -f "${PREFIX}/lib/lib{{ lib }}.a"
         - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"
         - test -f "${PREFIX}/lib/lib{{ lib }}-{{ major }}${SHLIB_EXT}"
         {% endfor %}
@@ -85,7 +84,6 @@ outputs:
           'ptesmumps',
         ]
         %}
-        - test -f "${PREFIX}/lib/lib{{ lib }}.a"
         - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"
         - test -f "${PREFIX}/lib/lib{{ lib }}-{{ major }}${SHLIB_EXT}"
         {% endfor %}

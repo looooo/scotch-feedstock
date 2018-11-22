@@ -27,9 +27,9 @@ make esmumps 2>&1 | tee make.log
 cd ..
 # install
 mkdir -p $PREFIX/lib/
-cp lib/* $PREFIX/lib/
+cp -v lib/*${SHLIB_EXT}* $PREFIX/lib/
 mkdir -p $PREFIX/bin/
-cp bin/* $PREFIX/bin/
+cp -v bin/* $PREFIX/bin/
 mkdir -p $PREFIX/include/
 # avoid conflicts with the real metis.h
 mkdir -p include/scotch
@@ -57,14 +57,14 @@ make ptesmumps 2>&1 | tee make.log
 cd ..
 # install
 mkdir -p $PREFIX/lib/
-cp lib/libpt* $PREFIX/lib/
+cp -v lib/libpt*${SHLIB_EXT}* $PREFIX/lib/
 mkdir -p $PREFIX/bin/
-cp bin/dg* $PREFIX/bin/
+cp -v bin/dg* $PREFIX/bin/
 mkdir -p $PREFIX/include/
-cp include/ptscotch*.h $PREFIX/include/
+cp -v include/ptscotch*.h $PREFIX/include/
 # avoid conflicts with the real parmetis.h
 mkdir -p $PREFIX/include/scotch
-cp include/parmetis.h  $PREFIX/include/scotch/
+cp -v include/parmetis.h  $PREFIX/include/scotch/
 
 # make check after installing so that @rpath resolves
 cd src/
