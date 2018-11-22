@@ -3,6 +3,7 @@
 {% set version = "6.0.6" %}
 {% set sha256 = "686f0cad88d033fe71c8b781735ff742b73a1d82a65b8b1586526d69729ac4cf" %}
 
+{% set major = version.split('.')[0] %}
 package:
   name: {{ name }}
   version: {{ version }}
@@ -39,11 +40,18 @@ outputs:
   - name: scotch
     test:
       commands:
-        - test -f "${PREFIX}/lib/libscotch.a"
-        - test -f "${PREFIX}/lib/libscotcherr.a"
-        - test -f "${PREFIX}/lib/libscotcherrexit.a"
-        - test -f "${PREFIX}/lib/libscotchmetis.a"
-        - test -f "${PREFIX}/lib/libesmumps.a"
+        {% for lib in [
+          'scotch',
+          'scotcherr',
+          'scotcherrexit',
+          'scotchmetis',
+          'esmumps',
+        ]
+        %}
+        - test -f "${PREFIX}/lib/lib{{ lib }}.a"
+        - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"
+        - test -f "${PREFIX}/lib/lib{{ lib }}-{{ major }}${SHLIB_EXT}"
+        {% endfor %}
         - test -f "${PREFIX}/include/scotch.h"
         - test -f "${PREFIX}/include/scotchf.h"
         - test -f "${PREFIX}/include/esmumps.h"
@@ -69,11 +77,18 @@ outputs:
       requires:
         - {{ compiler('cxx') }}
       commands:
-        - test -f "${PREFIX}/lib/libptscotch.a"
-        - test -f "${PREFIX}/lib/libptscotcherr.a"
-        - test -f "${PREFIX}/lib/libptscotcherrexit.a"
-        - test -f "${PREFIX}/lib/libptscotchparmetis.a"
-        - test -f "${PREFIX}/lib/libptesmumps.a"
+        {% for lib in [
+          'ptscotch',
+          'ptscotcherr',
+          'ptscotcherrexit',
+          'ptscotchparmetis',
+          'ptesmumps',
+        ]
+        %}
+        - test -f "${PREFIX}/lib/lib{{ lib }}.a"
+        - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"
+        - test -f "${PREFIX}/lib/lib{{ lib }}-{{ major }}${SHLIB_EXT}"
+        {% endfor %}
         - test -f "${PREFIX}/include/ptscotch.h"
         - test -f "${PREFIX}/include/ptscotchf.h"
         - test -f "${PREFIX}/include/esmumps.h"
