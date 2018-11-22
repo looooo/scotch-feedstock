@@ -38,6 +38,9 @@ requirements:
 
 outputs:
   - name: scotch
+    build:
+      run_exports:
+        - {{ pin_subpackage('scotch', max_pin='x.x.x') }}
     test:
       commands:
         {% for lib in [
@@ -59,6 +62,8 @@ outputs:
   - name: ptscotch
     build:
       script: ${RECIPE_DIR}/build.sh
+      run_exports:
+        - pin_subpackage('ptscotch', max_pin='x.x.x')
     requirements:
       build:
         - {{ compiler('fortran') }}
