@@ -22,7 +22,6 @@ build:
 
 requirements:
  build:
-   - {{ compiler('fortran') }}
    - {{ compiler('c') }}
    # FIXME: variants in outputs don't get picked up
    # so use mpi metapackage as a no-op that will
@@ -42,6 +41,15 @@ outputs:
       run_exports:
         - {{ pin_subpackage('scotch', max_pin='x.x.x') }}
     test:
+      requires:
+        - {{ compiler('c') }}
+      source_files:
+        - src/check
+        - src/libscotch/common.h
+        - src/libscotch/module.h
+        - src/libscotch/fibo.h
+      files:
+        - Makefile.inc
       commands:
         {% for lib in [
           'scotch',
@@ -66,7 +74,6 @@ outputs:
         - pin_subpackage('ptscotch', max_pin='x.x.x')
     requirements:
       build:
-        - {{ compiler('fortran') }}
         - {{ compiler('c') }}
       host:
         - flex
@@ -79,7 +86,14 @@ outputs:
         - zlib
     test:
       requires:
+        - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+      source_files:
+        - src/check
+        - src/libscotch/common.h
+        - src/libscotch/module.h
+      files:
+        - Makefile.inc
       commands:
         {% for lib in [
           'ptscotch',

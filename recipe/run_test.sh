@@ -1,8 +1,22 @@
 #!/bin/bash
 set -xeuo pipefail
 
+export MAKECHECKARGS="
+SCOTCHLIBDIR=$PREFIX/lib
+SCOTCHBINDIR=$PREFIX/bin
+SCOTCHINCLUDEDIR=$PREFIX/include
+LIB=$SHLIB_EXT
+"
+
+
+cp Makefile.inc src/
+cd src/check
+make clean
+
 if [[ "${PKG_NAME}" == "scotch" ]]
 then
+
+make check $MAKECHECKARGS
 
 mord -V
 gmap -V
@@ -25,6 +39,7 @@ mpiexec() { $MPIEXEC $@; }
 # mode, outside of mpiexec's control, with a quick workwaround for
 # docker images without `ssh`/`rsh` commands.
 export OMPI_MCA_plm_rsh_agent=false
+
 dggath -V
 dgmap -V
 dgord -V

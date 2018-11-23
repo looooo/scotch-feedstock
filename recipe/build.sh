@@ -28,10 +28,6 @@ mkdir -p include/scotch
 mv include/metis.h include/scotch/
 cp -rv include/* $PREFIX/include/
 
-# make check after installing so that @rpath resolves
-cd src/
-make check 2>&1 | tee check.log
-
 fi # scotch
 
 
@@ -40,8 +36,6 @@ then
 
 export CCP=mpicc
 export CCD=${CCP}
-
-export MPIEXEC="${RECIPE_DIR}/mpiexec.sh"
 
 # build
 cd src/
@@ -57,9 +51,5 @@ cp -v include/ptscotch*.h $PREFIX/include/
 # avoid conflicts with the real parmetis.h
 mkdir -p $PREFIX/include/scotch
 cp -v include/parmetis.h  $PREFIX/include/scotch/
-
-# make check after installing so that @rpath resolves
-cd src/
-make ptcheck EXECP="$MPIEXEC -n 4" 2>&1 | tee check.log
 
 fi # ptscotch
