@@ -2,14 +2,9 @@
 set -ex
 cp $RECIPE_DIR/Makefile.inc src/Makefile.inc
 
-export CFLAGS="${CFLAGS} -O3 -I${PREFIX}/include -DIDXSIZE64 -DSCOTCH_RENAME -Drestrict=__restrict -DCOMMON_FILE_COMPRESS_GZ -DCOMMON_RANDOM_FIXED_SEED -DCOMMON_PTHREAD"
-export LDFLAGS="${LDFLAGS} -L${PREFIX}/lib -lz -lm -pthread"
-
 if [[ $(uname) == "Darwin" ]]; then
-  export CFLAGS="${CFLAGS} -DCOMMON_PTHREAD_BARRIER -DCOMMON_TIMING_OLD"
   export SONAME="-Wl,-install_name,@rpath/"
 else
-  export LDFLAGS="${LDFLAGS} -lrt"
   export SONAME="-Wl,-soname,"
 fi
 # VERSION used in dylib versions in debian makefile patches
@@ -17,9 +12,6 @@ export VERSION=$PKG_VERSION
 
 if [ "$PKG_NAME" == "scotch" ]
 then
-
-export CFLAGS="${CFLAGS} -DSCOTCH_PTHREAD"
-export CCD=${CC}
 
 # build
 cd src/
