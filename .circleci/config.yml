@@ -1,11 +1,11 @@
 version: 2
 
 jobs:
-  build_linux_c_compilergccfortran_compilergfortranmpimpich:
+  build_linux_c_compilergccmpimpich:
     working_directory: ~/test
     machine: true
     environment:
-      - CONFIG: "linux_c_compilergccfortran_compilergfortranmpimpich"
+      - CONFIG: "linux_c_compilergccmpimpich"
     steps:
       - checkout
       - run:
@@ -18,11 +18,11 @@ jobs:
       - run:
           # Run, test and (if we have a BINSTAR_TOKEN) upload the distributions.
           command: ./.circleci/run_docker_build.sh
-  build_linux_c_compilergccfortran_compilergfortranmpiopenmpi:
+  build_linux_c_compilergccmpiopenmpi:
     working_directory: ~/test
     machine: true
     environment:
-      - CONFIG: "linux_c_compilergccfortran_compilergfortranmpiopenmpi"
+      - CONFIG: "linux_c_compilergccmpiopenmpi"
     steps:
       - checkout
       - run:
@@ -35,11 +35,11 @@ jobs:
       - run:
           # Run, test and (if we have a BINSTAR_TOKEN) upload the distributions.
           command: ./.circleci/run_docker_build.sh
-  build_linux_c_compilertoolchain_cfortran_compilertoolchain_fortmpimpich:
+  build_linux_c_compilertoolchain_cmpimpich:
     working_directory: ~/test
     machine: true
     environment:
-      - CONFIG: "linux_c_compilertoolchain_cfortran_compilertoolchain_fortmpimpich"
+      - CONFIG: "linux_c_compilertoolchain_cmpimpich"
     steps:
       - checkout
       - run:
@@ -52,11 +52,11 @@ jobs:
       - run:
           # Run, test and (if we have a BINSTAR_TOKEN) upload the distributions.
           command: ./.circleci/run_docker_build.sh
-  build_linux_c_compilertoolchain_cfortran_compilertoolchain_fortmpiopenmpi:
+  build_linux_c_compilertoolchain_cmpiopenmpi:
     working_directory: ~/test
     machine: true
     environment:
-      - CONFIG: "linux_c_compilertoolchain_cfortran_compilertoolchain_fortmpiopenmpi"
+      - CONFIG: "linux_c_compilertoolchain_cmpiopenmpi"
     steps:
       - checkout
       - run:
@@ -74,7 +74,7 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - build_linux_c_compilergccfortran_compilergfortranmpimpich
-      - build_linux_c_compilergccfortran_compilergfortranmpiopenmpi
-      - build_linux_c_compilertoolchain_cfortran_compilertoolchain_fortmpimpich
-      - build_linux_c_compilertoolchain_cfortran_compilertoolchain_fortmpiopenmpi
+      - build_linux_c_compilergccmpimpich
+      - build_linux_c_compilergccmpiopenmpi
+      - build_linux_c_compilertoolchain_cmpimpich
+      - build_linux_c_compilertoolchain_cmpiopenmpi
