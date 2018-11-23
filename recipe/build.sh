@@ -7,10 +7,10 @@ export LDFLAGS="${LDFLAGS} -L${PREFIX}/lib -lz -lm -pthread"
 
 if [[ $(uname) == "Darwin" ]]; then
   export CFLAGS="${CFLAGS} -DCOMMON_PTHREAD_BARRIER -DCOMMON_TIMING_OLD"
-  export SONAME="install_name"
+  export SONAME="-Wl,-install_name,@rpath/"
 else
   export LDFLAGS="${LDFLAGS} -lrt"
-  export SONAME="soname"
+  export SONAME="-Wl,-soname,"
 fi
 # VERSION used in dylib versions in debian makefile patches
 export VERSION=$PKG_VERSION
