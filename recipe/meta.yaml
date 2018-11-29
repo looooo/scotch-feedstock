@@ -1,8 +1,9 @@
 {% set name = "scotch" %}
-{% set build = 1000 %}
+{% set build = 1001 %}
 {% set version = "6.0.6" %}
 {% set sha256 = "686f0cad88d033fe71c8b781735ff742b73a1d82a65b8b1586526d69729ac4cf" %}
 
+{% set major = version.split('.')[0] %}
 package:
   name: {{ name }}
   version: {{ version }}
@@ -13,6 +14,7 @@ source:
   sha256: {{ sha256 }}
   patches:
     - patch1.diff
+    - debian-dynamic.patch
 
 build:
   skip: true  # [win]
@@ -20,7 +22,6 @@ build:
 
 requirements:
  build:
-   - {{ compiler('fortran') }}
    - {{ compiler('c') }}
    # FIXME: variants in outputs don't get picked up
    # so use mpi metapackage as a no-op that will
@@ -36,13 +37,31 @@ requirements:
 
 outputs:
   - name: scotch
+    build:
+      run_exports:
+        - {{ pin_subpackage('scotch', max_pin='x.x.x') }}
     test:
+      requires:
+        - {{ compiler('c') }}
+      source_files:
+        - src/check
+        - src/libscotch/common.h
+        - src/libscotch/module.h
+        - src/libscotch/fibo.h
+      files:
+        - Makefile.inc
       commands:
-        - test -f "${PREFIX}/lib/libscotch.a"
-        - test -f "${PREFIX}/lib/libscotcherr.a"
-        - test -f "${PREFIX}/lib/libscotcherrexit.a"
-        - test -f "${PREFIX}/lib/libscotchmetis.a"
-        - test -f "${PREFIX}/lib/libesmumps.a"
+        {% for lib in [
+          'scotch',
+          'scotcherr',
+          'scotcherrexit',
+          'scotchmetis',
+          'esmumps',
+        ]
+        %}
+        - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"
+        - test -f "${PREFIX}/lib/lib{{ lib }}-{{ major }}${SHLIB_EXT}"
+        {% endfor %}
         - test -f "${PREFIX}/include/scotch.h"
         - test -f "${PREFIX}/include/scotchf.h"
         - test -f "${PREFIX}/include/esmumps.h"
@@ -51,9 +70,10 @@ outputs:
   - name: ptscotch
     build:
       script: ${RECIPE_DIR}/build.sh
+      run_exports:
+        - {{ pin_subpackage('ptscotch', max_pin='x.x.x') }}
     requirements:
       build:
-        - {{ compiler('fortran') }}
         - {{ compiler('c') }}
       host:
         - flex
@@ -66,13 +86,26 @@ outputs:
         - zlib
     test:
       requires:
+        - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+      source_files:
+        - src/check
+        - src/libscotch/common.h
+        - src/libscotch/module.h
+      files:
+        - Makefile.inc
       commands:
-        - test -f "${PREFIX}/lib/libptscotch.a"
-        - test -f "${PREFIX}/lib/libptscotcherr.a"
-        - test -f "${PREFIX}/lib/libptscotcherrexit.a"
-        - test -f "${PREFIX}/lib/libptscotchparmetis.a"
-        - test -f "${PREFIX}/lib/libptesmumps.a"
+        {% for lib in [
+          'ptscotch',
+          'ptscotcherr',
+          'ptscotcherrexit',
+          'ptscotchparmetis',
+          'ptesmumps',
+        ]
+        %}
+        - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"
+        - test -f "${PREFIX}/lib/lib{{ lib }}-{{ major }}${SHLIB_EXT}"
+        {% endfor %}
         - test -f "${PREFIX}/include/ptscotch.h"
         - test -f "${PREFIX}/include/ptscotchf.h"
         - test -f "${PREFIX}/include/esmumps.h"
