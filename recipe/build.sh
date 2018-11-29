@@ -2,6 +2,10 @@
 set -ex
 cp $RECIPE_DIR/Makefile.inc src/Makefile.inc
 
+# remove --as-needed, which removes librt
+# even though libscotch requires clock_gettime from librt
+export LDFLAGS="${LDFLAGS/-Wl,--as-needed/}"
+
 if [[ $(uname) == "Darwin" ]]; then
   export SONAME="-Wl,-install_name,@rpath/"
 else
