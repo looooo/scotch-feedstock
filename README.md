@@ -1,5 +1,5 @@
-About scotch
-============
+About scotch-pkgs
+=================
 
 Home: https://www.labri.fr/perso/pelegrin/scotch/
 
@@ -18,9 +18,62 @@ sparse matrix block ordering.
 Current build status
 ====================
 
-[![Linux](https://img.shields.io/circleci/project/github/conda-forge/scotch-feedstock/master.svg?label=Linux)](https://circleci.com/gh/conda-forge/scotch-feedstock)
-[![OSX](https://img.shields.io/travis/conda-forge/scotch-feedstock/master.svg?label=macOS)](https://travis-ci.org/conda-forge/scotch-feedstock)
-![Windows disabled](https://img.shields.io/badge/Windows-disabled-lightgrey.svg)
+
+<table>
+    
+  <tr>
+    <td>Azure</td>
+    <td>
+      <details>
+        <summary>
+          <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=master">
+            <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=master">
+          </a>
+        </summary>
+        <table>
+          <thead><tr><th>Variant</th><th>Status</th></tr></thead>
+          <tbody><tr>
+              <td>linux_mpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=master&jobName=linux&configuration=linux_mpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=master&jobName=linux&configuration=linux_mpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_mpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=master&jobName=osx&configuration=osx_mpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=master&jobName=osx&configuration=osx_mpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </details>
+    </td>
+  </tr>
+  <tr>
+    <td>Windows</td>
+    <td>
+      <img src="https://img.shields.io/badge/Windows-disabled-lightgrey.svg" alt="Windows disabled">
+    </td>
+  </tr>
+![ppc64le disabled](https://img.shields.io/badge/ppc64le-disabled-lightgrey.svg)
+</table>
 
 Current release info
 ====================
@@ -30,10 +83,10 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-ptscotch-green.svg)](https://anaconda.org/conda-forge/ptscotch) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/ptscotch.svg)](https://anaconda.org/conda-forge/ptscotch) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/ptscotch.svg)](https://anaconda.org/conda-forge/ptscotch) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/ptscotch.svg)](https://anaconda.org/conda-forge/ptscotch) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-scotch-green.svg)](https://anaconda.org/conda-forge/scotch) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/scotch.svg)](https://anaconda.org/conda-forge/scotch) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/scotch.svg)](https://anaconda.org/conda-forge/scotch) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/scotch.svg)](https://anaconda.org/conda-forge/scotch) |
 
-Installing scotch
-=================
+Installing scotch-pkgs
+======================
 
-Installing `scotch` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `scotch-pkgs` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
 conda config --add channels conda-forge
@@ -54,6 +107,8 @@ conda search ptscotch --channel conda-forge
 
 About conda-forge
 =================
+
+[![Powered by NumFOCUS](https://img.shields.io/badge/powered%20by-NumFOCUS-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](http://numfocus.org)
 
 conda-forge is a community-led conda channel of installable packages.
 In order to provide high-quality builds, the process has been automated into the
@@ -88,17 +143,17 @@ Terminology
                   produce the finished article (built conda distributions)
 
 
-Updating scotch-feedstock
-=========================
+Updating scotch-pkgs-feedstock
+==============================
 
-If you would like to improve the scotch recipe or build a new
+If you would like to improve the scotch-pkgs recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `conda-forge` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/scotch-feedstock are
+Note that all branches in the conda-forge/scotch-pkgs-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks and branches in the main repository should only be used to
 build distinct package versions.
@@ -109,3 +164,11 @@ In order to produce a uniquely identifiable distribution:
  * If the version of a package **is** being increased, please remember to return
    the [``build/number``](https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#build-number-and-string)
    back to 0.
+
+Feedstock Maintainers
+=====================
+
+* [@basnijholt](https://github.com/basnijholt/)
+* [@dalcinl](https://github.com/dalcinl/)
+* [@minrk](https://github.com/minrk/)
+
