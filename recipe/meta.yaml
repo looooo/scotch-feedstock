@@ -23,6 +23,7 @@ build:
 outputs:
   - name: scotch
     build:
+      script: ${RECIPE_DIR}/build.sh
       run_exports:
         - {{ pin_subpackage('scotch', max_pin='x.x.x') }}
     requirements:
@@ -79,7 +80,7 @@ outputs:
         - zlib
       run:
         - {{ mpi }}
-        - scotch
+        - {{ pin_subpackage('scotch', max_pin='x.x.x') }}
         - zlib
     test:
       requires:
@@ -108,16 +109,16 @@ outputs:
         - test -f "${PREFIX}/include/esmumps.h"
         - test -f "${PREFIX}/include/scotch/parmetis.h"
         - test ! -f "${PREFIX}/include/parmetis.h"
+    about:
+      summary: 'PT-SCOTCH: (Parallel) Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package'
+
+
 
 about:
   home: https://www.labri.fr/perso/pelegrin/scotch/
   license: CeCILL-C
   license_file: doc/CeCILL-C_V1-en.txt
-  {% if name == 'scotch' %}
   summary: 'SCOTCH: Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package'
-  {% else %}
-  summary: 'PT-SCOTCH: (Parallel) Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package'
-  {% endif %}
   description: |
     Software package and libraries for sequential and parallel
     graph partitioning, static mapping and clustering, sequential
