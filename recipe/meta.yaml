@@ -5,7 +5,7 @@
 
 {% set major = version.split('.')[0] %}
 package:
-  name: {{ name }}
+  name: {{ name }}-pkgs
   version: {{ version }}
 
 source:
@@ -20,26 +20,23 @@ build:
   skip: true  # [win]
   number: {{ build }}
 
-requirements:
- build:
-   - {{ compiler('c') }}
-   # FIXME: variants in outputs don't get picked up
-   # so use mpi metapackage as a no-op that will
-   # trigger the needed variants
-   - mpi * {{ mpi }}
-
- host:
-   - bison
-   - flex
-   - zlib
- run:
-   - zlib
-
 outputs:
   - name: scotch
     build:
       run_exports:
         - {{ pin_subpackage('scotch', max_pin='x.x.x') }}
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        # preserve mpi variant for builds
+        - mpi * {{ mpi }}
+      host:
+        - bison
+        - flex
+        - zlib
+      run:
+        - zlib
+
     test:
       requires:
         - {{ compiler('c') }}
