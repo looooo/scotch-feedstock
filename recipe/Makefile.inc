@@ -27,6 +27,7 @@ endif
 
 CLIBFLAGS   = -fPIC
 LDFLAGS    := $(filter-out -lc++,${LDFLAGS}) \
+    -L$(PREFIX)/lib \
     -lm \
     -lz \
     -pthread
