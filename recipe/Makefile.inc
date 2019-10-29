@@ -26,8 +26,7 @@ ifeq ($(shell uname -s), Darwin)
 endif
 
 CLIBFLAGS   = -fPIC
-LDFLAGS    := $(filter-out -lc++,${LDFLAGS}) \
-    -L$(PREFIX)/lib \
+LDFLAGS    := $(filter-out -lc++, $(LDFLAGS)) \
     -lm \
     -lz \
     -pthread
