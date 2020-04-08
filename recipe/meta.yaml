@@ -1,5 +1,5 @@
 {% set name = "scotch" %}
-{% set build = 0 %}
+{% set build = 1 %}
 {% set version = "6.0.9" %}
 {% set sha256 = "622b4143cf01c480bb15708b3651b29c25e4aeb00c8c6447ff196aca2eca5c93" %}
 
@@ -29,6 +29,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - make
         # preserve mpi variant for builds
         - mpi * {{ mpi }}
       host:
@@ -73,6 +74,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - make
       host:
         - flex
         - {{ mpi }}
@@ -116,7 +118,7 @@ outputs:
 
 about:
   home: https://www.labri.fr/perso/pelegrin/scotch/
-  license: CeCILL-C
+  license: CECILL-C
   license_file: doc/CeCILL-C_V1-en.txt
   summary: 'SCOTCH: Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package'
   description: |
