@@ -1,0 +1,28 @@
+c_compiler:
+- gcc
+c_compiler_version:
+- '8'
+channel_sources:
+- conda-forge,defaults
+channel_targets:
+- conda-forge main
+cxx_compiler:
+- gxx
+cxx_compiler_version:
+- '8'
+docker_image:
+- condaforge/linux-anvil-ppc64le
+flex:
+- 2.6.4
+mpi:
+- mpich
+pin_run_as_build:
+  scotch:
+    min_pin: x.x.x
+    max_pin: x.x.x
+  zlib:
+    max_pin: x.x
+scotch:
+- 6.0.8
+zlib:
+- '1.2'
