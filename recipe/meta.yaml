@@ -1,24 +1,24 @@
 {% set name = "scotch" %}
-{% set build = 1 %}
-{% set version = "6.0.9" %}
-{% set sha256 = "622b4143cf01c480bb15708b3651b29c25e4aeb00c8c6447ff196aca2eca5c93" %}
+{% set version = "6.1.1" %}
 
 {% set major = version.split('.')[0] %}
+{% set minor = version.split('.')[1] %}
+
 package:
   name: {{ name }}-pkgs
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://gforge.inria.fr/frs/download.php/latestfile/298/scotch_{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  fn: {{ name }}-v{{ version }}.tar.gz
+  url: https://gitlab.inria.fr/scotch/scotch/-/archive/v{{ version }}/scotch-v{{ version }}.tar.gz
+  sha256: 14daf151399fc67f83fd3ff2933854f5e8d2207c7d35dd66a05660bf0bbd583c
   patches:
     - patch1.diff
     - debian-dynamic.patch
 
 build:
   skip: true  # [win]
-  number: {{ build }}
+  number: 0
 
 outputs:
   - name: scotch
@@ -36,6 +36,8 @@ outputs:
         - bison
         - flex
         - zlib
+        - bzip2
+        - xz
       run:
         - zlib
 
@@ -59,7 +61,7 @@ outputs:
         ]
         %}
         - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"
-        - test -f "${PREFIX}/lib/lib{{ lib }}-{{ major }}${SHLIB_EXT}"
+        - test -f "${PREFIX}/lib/lib{{ lib }}-{{ major }}.{{ minor }}${SHLIB_EXT}"
         {% endfor %}
         - test -f "${PREFIX}/include/scotch.h"
         - test -f "${PREFIX}/include/scotchf.h"
@@ -104,7 +106,7 @@ outputs:
         ]
         %}
         - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"
-        - test -f "${PREFIX}/lib/lib{{ lib }}-{{ major }}${SHLIB_EXT}"
+        - test -f "${PREFIX}/lib/lib{{ lib }}-{{ major }}.{{ minor }}${SHLIB_EXT}"
         {% endfor %}
         - test -f "${PREFIX}/include/ptscotch.h"
         - test -f "${PREFIX}/include/ptscotchf.h"
