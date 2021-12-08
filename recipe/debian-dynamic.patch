@@ -170,7 +170,7 @@ Index: scotch/src/libscotch/Makefile
  libscotcherr$(LIB)		:	library_error$(OBJ)
 +					$(CC) -shared $(LDFLAGS) $(SONAME)libscotcherr-$(VERSION).$(RELEASE)$(SHLIB_EXT) $^ -o libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
 +					ln -s libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotcherr-$(VERSION).$(RELEASE)$(SHLIB_EXT)
-+					ln -s libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotcherr$(SHLIB_EXT)
++					ln -sf libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotcherr$(SHLIB_EXT)
  					$(AR) $(ARFLAGS) $(@) $(?)
  					-$(RANLIB) $(@)
  
