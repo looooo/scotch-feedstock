@@ -97,7 +97,7 @@ Index: scotch/src/libscotchmetis/Makefile
  					parmetis_dgraph_order_f$(OBJ)		\
  					parmetis_dgraph_part$(OBJ)		\
  					parmetis_dgraph_part_f$(OBJ)
-+					$(CC) -shared -Wl,-soname,libptscotchparmetis-$(VERSION).$(RELEASE).so $^ -L../libscotch -lptscotch -lptscotcherr -lscotch -lm -o libptscotchparmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL).so
++					$(CC) -shared -Wl,-soname,libptscotchparmetis-$(VERSION).$(RELEASE).so $^ -L../libscotch -lptscotch -lptscotcherr -lscotch -lm -o libptscotchparmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL).so $(LDFLAGS)
 +					ln -s libptscotchparmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotchparmetis-$(VERSION).$(RELEASE).so
 +					ln -s libptscotchparmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotchparmetis.so
  					$(AR) $(ARFLAGS) $(@) $(^)
@@ -161,21 +161,21 @@ Index: scotch/src/libscotch/Makefile
 -libscotch$(LIB)			:	$(LIBSCOTCHDEPS)
 -					$(AR) $(ARFLAGS) $(@) $(?)
 +libscotch$(LIB)			:	$(LIBSCOTCHDEPS) libscotcherr$(LIB)
-+					$(CC) -shared -Wl,-soname,libscotch-$(VERSION).$(RELEASE).so $(LIBSCOTCHDEPS) -L. -lscotcherr -lz -lbz2 -llzma -lpthread -lm -lrt -o libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so
++					$(CC) -shared -Wl,-soname,libscotch-$(VERSION).$(RELEASE).so $(LIBSCOTCHDEPS) -L. -lscotcherr -lz -lbz2 -llzma -lpthread -lm -lrt -o libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so $(LDFLAGS)
 +					ln -s libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotch-$(VERSION).$(RELEASE).so
 +					ln -s libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotch.so
 +					$(AR) $(ARFLAGS) $(@) $(LIBSCOTCHDEPS)
  					-$(RANLIB) $(@)
  
  libscotcherr$(LIB)		:	library_error$(OBJ)
-+					$(CC) -shared -Wl,-soname,libscotcherr-$(VERSION).$(RELEASE).so $^ -o libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so
++					$(CC) -shared -Wl,-soname,libscotcherr-$(VERSION).$(RELEASE).so $^ -o libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so $(LDFLAGS)
 +					ln -s libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotcherr-$(VERSION).$(RELEASE).so
 +					ln -s libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotcherr.so
  					$(AR) $(ARFLAGS) $(@) $(?)
  					-$(RANLIB) $(@)
  
  libscotcherrexit$(LIB)		:	library_error_exit$(OBJ)
-+					$(CC) -shared -Wl,-soname,libscotcherrexit-$(VERSION).$(RELEASE).so $^ -o libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so
++					$(CC) -shared -Wl,-soname,libscotcherrexit-$(VERSION).$(RELEASE).so $^ -o libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so $(LDFLAGS)
 +					ln -s libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotcherrexit-$(VERSION).$(RELEASE).so
 +					ln -s libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotcherrexit.so
  					$(AR) $(ARFLAGS) $(@) $(?)
@@ -184,21 +184,21 @@ Index: scotch/src/libscotch/Makefile
 -libptscotch$(LIB)		:	$(LIBPTSCOTCHDEPS)
 -					$(AR) $(ARFLAGS) $(@) $(?)
 +libptscotch$(LIB)		:	$(LIBPTSCOTCHDEPS) $(LIBSCOTCHDEPS) libptscotcherr$(LIB)
-+					$(CC) -shared -Wl,-soname,libptscotch-$(VERSION).$(RELEASE).so $(LIBPTSCOTCHDEPS) $(LIBSCOTCHDEPS) -L. -lptscotcherr -lz -lbz2 -llzma -lpthread -lm -lrt -o libptscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so
++					$(CC) -shared -Wl,-soname,libptscotch-$(VERSION).$(RELEASE).so $(LIBPTSCOTCHDEPS) $(LIBSCOTCHDEPS) -L. -lptscotcherr -lz -lbz2 -llzma -lpthread -lm -lrt -o libptscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so $(LDFLAGS)
 +					ln -s libptscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotch-$(VERSION).$(RELEASE).so
 +					ln -s libptscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotch.so
 +					$(AR) $(ARFLAGS) $(@) $(LIBPTSCOTCHDEPS) $(LIBSCOTCHDEPS)
  					-$(RANLIB) $(@)
  
  libptscotcherr$(LIB)		:	library_error_pt$(OBJ)
-+					$(CC) -shared -Wl,-soname,libptscotcherr-$(VERSION).$(RELEASE).so $^ -o libptscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so
++					$(CC) -shared -Wl,-soname,libptscotcherr-$(VERSION).$(RELEASE).so $^ -o libptscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so $(LDFLAGS)
 +					ln -s libptscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotcherr-$(VERSION).$(RELEASE).so
 +					ln -s libptscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotcherr.so
  					$(AR) $(ARFLAGS) $(@) $(?)
  					-$(RANLIB) $(@)
  
  libptscotcherrexit$(LIB)	:	library_error_exit_pt$(OBJ)
-+					$(CC) -shared -Wl,-soname,libptscotcherrexit-$(VERSION).$(RELEASE).so $^ -o libptscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so
++					$(CC) -shared -Wl,-soname,libptscotcherrexit-$(VERSION).$(RELEASE).so $^ -o libptscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so $(LDFLAGS)
 +					ln -s libptscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotcherrexit-$(VERSION).$(RELEASE).so
 +					ln -s libptscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotcherrexit.so
  					$(AR) $(ARFLAGS) $(@) $(?)
@@ -263,7 +263,7 @@ Index: scotch/src/esmumps/Makefile
  
 -libesmumps$(LIB)		:	$(LIBESMUMPSDEPS)
 +lib$(ESMUMPSLIB)$(LIB)		:	$(LIBESMUMPSDEPS)
-+					$(CC) -shared -Wl,-soname,lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).so $^ -L../libscotch -l$(SCOTCHLIB) -l$(SCOTCHLIB)err -o lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).$(PATCHLEVEL).so
++					$(CC) -shared -Wl,-soname,lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).so $^ -L../libscotch -l$(SCOTCHLIB) -l$(SCOTCHLIB)err -o lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).$(PATCHLEVEL).so $(LDFLAGS)
 +					ln -s lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).$(PATCHLEVEL).so lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).so
 +					ln -s lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).$(PATCHLEVEL).so lib$(ESMUMPSLIB).so
  					$(AR) $(ARFLAGS) $(@) $(?)
