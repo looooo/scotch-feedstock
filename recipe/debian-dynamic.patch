@@ -79,17 +79,17 @@ Index: scotch/src/libscotchmetis/Makefile
 -					-$(CP) metis.h metisf.h $(includedir)
 -					-$(CP) libscotchmetis$(LIB) $(libdir)
 +					-$(CP) -a metis.h metisf.h $(includedir)
-+					-$(CP) -a libscotchmetis$(LIB) libscotchmetis*.so $(libdir)
++					-$(CP) -a libscotchmetis$(LIB) libscotchmetis*$(SHLIB_EXT) $(libdir)
  
  ptinstall			:	ptscotch
 -					-$(CP) parmetis.h $(includedir)
 -					-$(CP) libptscotchparmetis$(LIB) $(libdir)
 +					-$(CP) -a parmetis.h $(includedir)
-+					-$(CP) -a libptscotchparmetis$(LIB) libptscotchparmetis*.so $(libdir)
++					-$(CP) -a libptscotchparmetis$(LIB) libptscotchparmetis*$(SHLIB_EXT) $(libdir)
  
  clean				:
 -					-$(RM) *~ *$(OBJ) lib*$(LIB) metis.h metisf.h parmetis.h
-+					-$(RM) *~ *$(OBJ) lib*$(LIB) lib*.so lib*.a metis.h metisf.h parmetis.h
++					-$(RM) *~ *$(OBJ) lib*$(LIB) lib*$(SHLIB_EXT) lib*.a metis.h metisf.h parmetis.h
  
  realclean			:	clean
  
@@ -97,9 +97,9 @@ Index: scotch/src/libscotchmetis/Makefile
  					parmetis_dgraph_order_f$(OBJ)		\
  					parmetis_dgraph_part$(OBJ)		\
  					parmetis_dgraph_part_f$(OBJ)
-+					$(CC) -shared -Wl,-soname,libptscotchparmetis-$(VERSION).$(RELEASE).so $^ -L../libscotch -lptscotch -lptscotcherr -lscotch -lm -o libptscotchparmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL).so $(LDFLAGS)
-+					ln -s libptscotchparmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotchparmetis-$(VERSION).$(RELEASE).so
-+					ln -s libptscotchparmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotchparmetis.so
++					$(CC) -shared $(LDFLAGS) $(SONAME)libptscotchparmetis-$(VERSION).$(RELEASE)$(SHLIB_EXT) $^ -L../libscotch -lptscotch -lptscotcherr -lscotch -lm -o libptscotchparmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
++					ln -s libptscotchparmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libptscotchparmetis-$(VERSION).$(RELEASE)$(SHLIB_EXT)
++					ln -s libptscotchparmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libptscotchparmetis$(SHLIB_EXT)
  					$(AR) $(ARFLAGS) $(@) $(^)
  					-$(RANLIB) $(@)
  
@@ -107,9 +107,9 @@ Index: scotch/src/libscotchmetis/Makefile
  					metis_graph_part_dual_f$(OBJ)		\
  					metis_options$(OBJ)			\
  					metis_options_f$(OBJ)
-+					$(CC) -shared -Wl,-soname,libscotchmetis-$(VERSION).$(RELEASE).so $^ -L../libscotch -lscotch -lscotcherr -lm -o libscotchmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL).so
-+					ln -s libscotchmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotchmetis-$(VERSION).$(RELEASE).so
-+					ln -s libscotchmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotchmetis.so
++					$(CC) -shared $(LDFLAGS) $(SONAME)libscotchmetis-$(VERSION).$(RELEASE)$(SHLIB_EXT) $^ -L../libscotch -lscotch -lscotcherr -lm -o libscotchmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
++					ln -s libscotchmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotchmetis-$(VERSION).$(RELEASE)$(SHLIB_EXT)
++					ln -s libscotchmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotchmetis$(SHLIB_EXT)
  					$(AR) $(ARFLAGS) $(@) $(^)
  					-$(RANLIB) $(@)
 Index: scotch/src/libscotch/Makefile
@@ -121,7 +121,7 @@ Index: scotch/src/libscotch/Makefile
  
  clean				:
 -					-$(RM) *~ *$(OBJ) lib*$(LIB) parser_yy.c parser_ly.h parser_ll.c *scotch.h *scotchf.h y.output *dummysizes$(EXE)
-+					-$(RM) *~ *$(OBJ) lib*.a lib*.so* parser_yy.c parser_ly.h parser_ll.c *scotch.h *scotchf.h y.output *dummysizes$(EXE)
++					-$(RM) *~ *$(OBJ) lib*.a lib*$(SHLIB_EXT)* parser_yy.c parser_ly.h parser_ll.c *scotch.h *scotchf.h y.output *dummysizes$(EXE)
  
  realclean			:	clean
  
@@ -161,46 +161,46 @@ Index: scotch/src/libscotch/Makefile
 -libscotch$(LIB)			:	$(LIBSCOTCHDEPS)
 -					$(AR) $(ARFLAGS) $(@) $(?)
 +libscotch$(LIB)			:	$(LIBSCOTCHDEPS) libscotcherr$(LIB)
-+					$(CC) -shared -Wl,-soname,libscotch-$(VERSION).$(RELEASE).so $(LIBSCOTCHDEPS) -L. -lscotcherr -lz -lbz2 -llzma -lpthread -lm -lrt -o libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so $(LDFLAGS)
-+					ln -s libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotch-$(VERSION).$(RELEASE).so
-+					ln -s libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotch.so
++					$(CC) -shared $(LDFLAGS) $(SONAME)libscotch-$(VERSION).$(RELEASE)$(SHLIB_EXT) $(LIBSCOTCHDEPS) -L. -lscotcherr -lz -lbz2 -llzma -lpthread -lm -lrt -o libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
++					ln -s libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotch-$(VERSION).$(RELEASE)$(SHLIB_EXT)
++					ln -s libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotch$(SHLIB_EXT)
 +					$(AR) $(ARFLAGS) $(@) $(LIBSCOTCHDEPS)
  					-$(RANLIB) $(@)
  
  libscotcherr$(LIB)		:	library_error$(OBJ)
-+					$(CC) -shared -Wl,-soname,libscotcherr-$(VERSION).$(RELEASE).so $^ -o libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so $(LDFLAGS)
-+					ln -s libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotcherr-$(VERSION).$(RELEASE).so
-+					ln -s libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotcherr.so
++					$(CC) -shared $(LDFLAGS) $(SONAME)libscotcherr-$(VERSION).$(RELEASE)$(SHLIB_EXT) $^ -o libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
++					ln -s libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotcherr-$(VERSION).$(RELEASE)$(SHLIB_EXT)
++					ln -s libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotcherr$(SHLIB_EXT)
  					$(AR) $(ARFLAGS) $(@) $(?)
  					-$(RANLIB) $(@)
  
  libscotcherrexit$(LIB)		:	library_error_exit$(OBJ)
-+					$(CC) -shared -Wl,-soname,libscotcherrexit-$(VERSION).$(RELEASE).so $^ -o libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so $(LDFLAGS)
-+					ln -s libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotcherrexit-$(VERSION).$(RELEASE).so
-+					ln -s libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotcherrexit.so
++					$(CC) -shared $(LDFLAGS) $(SONAME)libscotcherrexit-$(VERSION).$(RELEASE)$(SHLIB_EXT) $^ -o libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
++					ln -s libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotcherrexit-$(VERSION).$(RELEASE)$(SHLIB_EXT)
++					ln -s libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotcherrexit$(SHLIB_EXT)
  					$(AR) $(ARFLAGS) $(@) $(?)
  					-$(RANLIB) $(@)
  
 -libptscotch$(LIB)		:	$(LIBPTSCOTCHDEPS)
 -					$(AR) $(ARFLAGS) $(@) $(?)
 +libptscotch$(LIB)		:	$(LIBPTSCOTCHDEPS) $(LIBSCOTCHDEPS) libptscotcherr$(LIB)
-+					$(CC) -shared -Wl,-soname,libptscotch-$(VERSION).$(RELEASE).so $(LIBPTSCOTCHDEPS) $(LIBSCOTCHDEPS) -L. -lptscotcherr -lz -lbz2 -llzma -lpthread -lm -lrt -o libptscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so $(LDFLAGS)
-+					ln -s libptscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotch-$(VERSION).$(RELEASE).so
-+					ln -s libptscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotch.so
++					$(CC) -shared $(LDFLAGS) $(SONAME)libptscotch-$(VERSION).$(RELEASE)$(SHLIB_EXT) $(LIBPTSCOTCHDEPS) $(LIBSCOTCHDEPS) -L. -lptscotcherr -lz -lbz2 -llzma -lpthread -lm -lrt -o libptscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
++					ln -s libptscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libptscotch-$(VERSION).$(RELEASE)$(SHLIB_EXT)
++					ln -s libptscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libptscotch$(SHLIB_EXT)
 +					$(AR) $(ARFLAGS) $(@) $(LIBPTSCOTCHDEPS) $(LIBSCOTCHDEPS)
  					-$(RANLIB) $(@)
  
  libptscotcherr$(LIB)		:	library_error_pt$(OBJ)
-+					$(CC) -shared -Wl,-soname,libptscotcherr-$(VERSION).$(RELEASE).so $^ -o libptscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so $(LDFLAGS)
-+					ln -s libptscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotcherr-$(VERSION).$(RELEASE).so
-+					ln -s libptscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotcherr.so
++					$(CC) -shared $(LDFLAGS) $(SONAME)libptscotcherr-$(VERSION).$(RELEASE)$(SHLIB_EXT) $^ -o libptscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
++					ln -s libptscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libptscotcherr-$(VERSION).$(RELEASE)$(SHLIB_EXT)
++					ln -s libptscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libptscotcherr$(SHLIB_EXT)
  					$(AR) $(ARFLAGS) $(@) $(?)
  					-$(RANLIB) $(@)
  
  libptscotcherrexit$(LIB)	:	library_error_exit_pt$(OBJ)
-+					$(CC) -shared -Wl,-soname,libptscotcherrexit-$(VERSION).$(RELEASE).so $^ -o libptscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so $(LDFLAGS)
-+					ln -s libptscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotcherrexit-$(VERSION).$(RELEASE).so
-+					ln -s libptscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotcherrexit.so
++					$(CC) -shared $(LDFLAGS) $(SONAME)libptscotcherrexit-$(VERSION).$(RELEASE)$(SHLIB_EXT) $^ -o libptscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
++					ln -s libptscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libptscotcherrexit-$(VERSION).$(RELEASE)$(SHLIB_EXT)
++					ln -s libptscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libptscotcherrexit$(SHLIB_EXT)
  					$(AR) $(ARFLAGS) $(@) $(?)
  					-$(RANLIB) $(@)
 Index: scotch/src/esmumps/Makefile
@@ -253,7 +253,7 @@ Index: scotch/src/esmumps/Makefile
  
  clean				:
 -					-$(RM) *~ common.h *$(OBJ) lib*$(LIB) main_esmumps$(EXE)
-+					-$(RM) *~ common.h *$(OBJ) lib*$(LIB) lib*.so main_*esmumps$(EXE)
++					-$(RM) *~ common.h *$(OBJ) lib*$(LIB) lib*$(SHLIB_EXT) main_*esmumps$(EXE)
  
  realclean			:	clean
  
@@ -263,9 +263,9 @@ Index: scotch/src/esmumps/Makefile
  
 -libesmumps$(LIB)		:	$(LIBESMUMPSDEPS)
 +lib$(ESMUMPSLIB)$(LIB)		:	$(LIBESMUMPSDEPS)
-+					$(CC) -shared -Wl,-soname,lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).so $^ -L../libscotch -l$(SCOTCHLIB) -l$(SCOTCHLIB)err -o lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).$(PATCHLEVEL).so $(LDFLAGS)
-+					ln -s lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).$(PATCHLEVEL).so lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).so
-+					ln -s lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).$(PATCHLEVEL).so lib$(ESMUMPSLIB).so
++					$(CC) -shared $(LDFLAGS) $(SONAME)lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE)$(SHLIB_EXT) $^ -L../libscotch -l$(SCOTCHLIB) -l$(SCOTCHLIB)err -o lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
++					ln -s lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE)$(SHLIB_EXT)
++					ln -s lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) lib$(ESMUMPSLIB)$(SHLIB_EXT)
  					$(AR) $(ARFLAGS) $(@) $(?)
  					-$(RANLIB) $(@)
  
