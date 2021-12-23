@@ -9,6 +9,8 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/scotch-feedstoc
 
 Summary: SCOTCH: Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package
 
+Development: https://gitlab.inria.fr/scotch/scotch
+
 Documentation: http://gforge.inria.fr/docman/?group_id=248&dirid=326
 
 Software package and libraries for sequential and parallel

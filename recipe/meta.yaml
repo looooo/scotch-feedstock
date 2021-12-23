@@ -33,7 +33,7 @@ outputs:
         # preserve mpi variant for builds
         - mpi * {{ mpi }}
       host:
-        - bison
+        - bison <3.8
         - flex
         - zlib
       run:
@@ -127,6 +127,7 @@ about:
     mesh and hypergraph partitioning, and sequential and parallel
     sparse matrix block ordering.
   doc_url: http://gforge.inria.fr/docman/?group_id=248&dirid=326
+  dev_url: https://gitlab.inria.fr/scotch/scotch
 
 extra:
   recipe-maintainers:
