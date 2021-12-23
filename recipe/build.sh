@@ -4,6 +4,8 @@ set -ex
 
 cp $RECIPE_DIR/Makefile.inc src/Makefile.inc
 
+export CCD=$CC_FOR_BUILD
+
 # remove --as-needed, which removes librt
 # even though libscotch requires clock_gettime from librt
 export LDFLAGS="${LDFLAGS/-Wl,--as-needed/}"
