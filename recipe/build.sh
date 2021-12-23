@@ -1,5 +1,7 @@
 #!/bin/sh
+
 set -ex
+
 cp $RECIPE_DIR/Makefile.inc src/Makefile.inc
 
 # remove --as-needed, which removes librt
