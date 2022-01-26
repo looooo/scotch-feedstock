@@ -2,7 +2,11 @@
 
 set -ex
 
-cp $RECIPE_DIR/Makefile.inc src/Makefile.inc
+if [[ $(uname) == "Linux" ]]; then
+  cp $RECIPE_DIR/Makefile.inc src/Makefile.inc
+else
+  cp src/Make.inc/Makefile.inc.i686_mac_darwin10 src/Makefile.inc
+fi
 
 # remove --as-needed, which removes librt
 # even though libscotch requires clock_gettime from librt

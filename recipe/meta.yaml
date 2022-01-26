@@ -14,7 +14,7 @@ source:
   sha256: 4e54f056199e6c23d46581d448fcfe2285987e5554a0aa527f7931684ef2809e
   patches:
     - patch1.diff
-    - debian-dynamic.patch
+    # - debian-dynamic.patch
 
 build:
   skip: true  # [win]
