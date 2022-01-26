@@ -305,15 +305,6 @@ Index: scotch/src/scotch/Makefile
  
  ##
  ##  Project rules.
-@@ -330,7 +330,7 @@
- 					gout_o.c				\
- 					$(includedir)/scotch.h			\
- 					$(libdir)/libscotch$(LIB)
--					$(CC) $(CFLAGS) -I../libscotch -I$(includedir) gout_c.c gout_o.c -o $(@) -L$(libdir) -lscotch -lscotcherrexit $(LDFLAGS)
-+					$(CC) $(CFLAGS) -I../libscotch -I$(includedir) gout_c.c gout_o.c -o $(@) -L$(libdir) -l$(SCOTCHLIB) -lscotcherr -lscotcherrexit $(LDFLAGS)
- 
- gpart$(EXE)			:	gmap.c					\
- 					../libscotch/module.h			\
 @@ -339,7 +339,7 @@
  					$(libdir)/libscotch$(LIB)		\
  					$(libdir)/libscotcherrexit$(LIB)	\
