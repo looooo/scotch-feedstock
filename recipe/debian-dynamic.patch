@@ -109,7 +109,7 @@ Index: scotch/src/libscotchmetis/Makefile
  					metis_options_f$(OBJ)
 +					$(CC) -shared $(LDFLAGS) $(SONAME)libscotchmetis-$(VERSION).$(RELEASE)$(SHLIB_EXT) $^ -L../libscotch -lscotch -lscotcherr -lm -o libscotchmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
 +					ln -s libscotchmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotchmetis-$(VERSION).$(RELEASE)$(SHLIB_EXT)
-+					ln -s libscotchmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotchmetis$(SHLIB_EXT)
++					ln -sf libscotchmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotchmetis$(SHLIB_EXT)
  					$(AR) $(ARFLAGS) $(@) $(^)
  					-$(RANLIB) $(@)
 Index: scotch/src/libscotch/Makefile
