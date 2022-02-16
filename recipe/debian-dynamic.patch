@@ -79,7 +79,7 @@ Index: scotch/src/libscotchmetis/Makefile
  					metis_graph_part$(OBJ)			\
  					metis_graph_part_f$(OBJ)
 +					$(CC) -shared $(LDFLAGS) $(SONAME)libscotchmetis-$(VERSION)$(SHLIB_EXT) $^ -L../libscotch -lscotch -o libscotchmetis-$(VERSION)$(SHLIB_EXT)
-+					ln -s libscotchmetis-$(VERSION)$(SHLIB_EXT) libscotchmetis$(SHLIB_EXT)
++					# ln -s libscotchmetis-$(VERSION)$(SHLIB_EXT) libscotchmetis$(SHLIB_EXT)
  					$(AR) $(ARFLAGS) $(@) $(^)
  					-$(RANLIB) $(@)
 Index: scotch/src/libscotch/Makefile
