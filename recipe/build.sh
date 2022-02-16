@@ -23,6 +23,7 @@ if [[ "$PKG_NAME" == "scotch" ]]; then
   # build
   cd src/
   make esmumps
+  cd ..
 
   # install
   mkdir -p $PREFIX/lib/
@@ -44,6 +45,7 @@ elif [[ "$PKG_NAME" == "ptscotch" ]]; then
   cd src/
   make ptesmumps
   cd ..
+
   # install
   mkdir -p $PREFIX/lib/
   cp -v lib/libpt*${SHLIB_EXT}* $PREFIX/lib/
