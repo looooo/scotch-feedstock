@@ -82,6 +82,7 @@ outputs:
       build:
         - {{ compiler('c') }}
         - make
+        - {{ mpi }}
         # - {{ mpi }}  # [mpi == "openmpi" and (build_platform != target_platform)]
       host:
         - {{ mpi }}
