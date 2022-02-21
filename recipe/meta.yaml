@@ -38,13 +38,13 @@ outputs:
         - make
         - {{ mpi }}  # [mpi == "openmpi" and (build_platform != target_platform)]
       host:
-        - {{ mpi }}
+        # - {{ mpi }}
         - bison <3.8
         - flex
         - zlib
       run:
         - zlib
-        - {{ mpi }}
+        # - {{ mpi }}
 
     test:
       requires:
