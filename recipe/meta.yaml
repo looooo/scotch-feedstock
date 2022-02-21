@@ -32,8 +32,6 @@ outputs:
       build:
         - {{ compiler('c') }}
         - make
-        # - {{ mpi }}
-        # - {{ mpi }}  # [mpi == "mpich" and (build_platform != target_platform)]
       host:
         - bison <3.8
         - flex
@@ -77,11 +75,10 @@ outputs:
       build:
         - {{ compiler('c') }}
         - make
-        # - {{ mpi }}
-        # - {{ mpi }}  # [mpi == "mpich" and (build_platform == target_platform)]
+        - {{ mpi }}  # [build_platform != target_platform]
       host:
         - flex
-        - {{ mpi }}
+        - {{ mpi }}  # [build_platform == target_platform]
         - scotch
         - zlib
       run:
