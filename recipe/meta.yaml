@@ -40,6 +40,7 @@ outputs:
         - zlib
       run:
         - zlib
+        - {{ mpi }}
 
     test:
       requires:
@@ -77,9 +78,10 @@ outputs:
       build:
         - {{ compiler('c') }}
         - make
+        # preserve mpi variant for builds
+        - mpi * {{ mpi }}
       host:
         - flex
-        - {{ mpi }}
         - scotch
         - zlib
       run:
