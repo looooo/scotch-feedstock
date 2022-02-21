@@ -1,0 +1,28 @@
+--- src/libscotchmetis/Makefile	2022-02-21 09:59:36.000000000 +1000
++++ src/libscotchmetis/Makefile_new	2022-02-21 10:02:57.000000000 +1000
+@@ -82,9 +82,9 @@
+ ##  Todo list.
+ ##
+ 
+-metis.h				:	../libscotch/dummysizes$(EXE)		\
+-					library_metis.h
+-					../libscotch/dummysizes$(EXE) library_metis.h metis.h
++# metis.h				:	../libscotch/dummysizes$(EXE)		\
++# 					library_metis.h
++# 					../libscotch/dummysizes$(EXE) library_metis.h metis.h
+ 
+ metis_graph_order$(OBJ)		:	metis_graph_order.c			\
+ 					../libscotch/module.h			\
+@@ -110,9 +110,9 @@
+ 					$(includedir)/scotch.h			\
+ 					metis.h
+ 
+-parmetis.h			:	../libscotch/dummysizes$(EXE)		\
+-					library_parmetis.h
+-					../libscotch/dummysizes$(EXE) library_parmetis.h parmetis.h
++# parmetis.h			:	../libscotch/dummysizes$(EXE)		\
++# 					library_parmetis.h
++# 					../libscotch/dummysizes$(EXE) library_parmetis.h parmetis.h
+ 
+ parmetis_dgraph_order$(OBJ)	:	parmetis_dgraph_order.c			\
+ 					../libscotch/module.h			\

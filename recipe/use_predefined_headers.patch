@@ -1,0 +1,39 @@
+--- ./src/libscotch/Makefile	2022-02-21 09:56:57.000000000 +1000
++++ ./src/libscotch/Makefile_new	2022-02-21 09:47:37.000000000 +1000
+@@ -3076,21 +3076,21 @@
+ 					dorder.h
+ 			 		$(CCD) $(CCDFLAGS) -DSCOTCH_VERSION_NUM=$(VERSION) -DSCOTCH_RELEASE_NUM=$(RELEASE) -DSCOTCH_PATCHLEVEL_NUM=$(PATCHLEVEL) $(<) -o $(@) $(LDFLAGS)
+ 
+-scotch.h			:	dummysizes$(EXE)			\
+-					library.h
+-					./dummysizes$(EXE) "-s$(SCOTCH_NAME_SUFFIX)" library.h scotch.h
+-
+-scotchf.h			:	dummysizes$(EXE) 			\
+-					library_f.h
+-					./dummysizes$(EXE) "-s$(SCOTCH_NAME_SUFFIX)" library_f.h scotchf.h
+-
+-ptscotch.h			:	ptdummysizes$(EXE)			\
+-					library_pt.h
+-					./ptdummysizes$(EXE) "-s$(SCOTCH_NAME_SUFFIX)" library_pt.h ptscotch.h
+-
+-ptscotchf.h			:	ptdummysizes$(EXE)			\
+-					library_pt_f.h
+-					./ptdummysizes$(EXE) "-s$(SCOTCH_NAME_SUFFIX)" library_pt_f.h ptscotchf.h
++# scotch.h			:	dummysizes$(EXE)			\
++# 					library.h
++# 					./dummysizes$(EXE) "-s$(SCOTCH_NAME_SUFFIX)" library.h scotch.h
++
++# scotchf.h			:	dummysizes$(EXE) 			\
++# 					library_f.h
++# 					./dummysizes$(EXE) "-s$(SCOTCH_NAME_SUFFIX)" library_f.h scotchf.h
++
++# ptscotch.h			:	ptdummysizes$(EXE)			\
++# 					library_pt.h
++# 					./ptdummysizes$(EXE) "-s$(SCOTCH_NAME_SUFFIX)" library_pt.h ptscotch.h
++
++# ptscotchf.h			:	ptdummysizes$(EXE)			\
++# 					library_pt_f.h
++# 					./ptdummysizes$(EXE) "-s$(SCOTCH_NAME_SUFFIX)" library_pt_f.h ptscotchf.h
+ 
+ libscotch$(LIB)			:	$(LIBSCOTCHDEPS) libscotcherr$(LIB)
+ 					$(CC) -shared $(LDFLAGS) $(SONAME)libscotch-$(VERSION)$(SHLIB_EXT) $(LIBSCOTCHDEPS) -L. -lscotcherr -lz -lpthread -lm -o libscotch-$(VERSION)$(SHLIB_EXT)
