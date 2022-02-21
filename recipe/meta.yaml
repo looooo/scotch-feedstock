@@ -77,7 +77,7 @@ outputs:
         - {{ compiler('c') }}
         - make
         # - {{ mpi }}
-        - {{ mpi }}  # [mpi == "mpich" and (build_platform == target_platform)]
+        # - {{ mpi }}  # [mpi == "mpich" and (build_platform == target_platform)]
       host:
         - flex
         - {{ mpi }}
