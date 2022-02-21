@@ -79,8 +79,8 @@ outputs:
         # - {{ mpi }}
         # - {{ mpi }}  # [mpi == "openmpi" and (build_platform != target_platform)]
       host:
-        - {{ mpi }}
         - flex
+        - {{ mpi }}
         - scotch
         - zlib
       run:
