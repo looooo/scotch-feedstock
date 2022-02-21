@@ -32,7 +32,7 @@ outputs:
       build:
         - {{ compiler('c') }}
         - make
-        - {{ mpi }}
+        # - {{ mpi }}
         # - {{ mpi }}  # [mpi == "mpich" and (build_platform != target_platform)]
       host:
         - bison <3.8
