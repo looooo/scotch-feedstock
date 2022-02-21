@@ -36,7 +36,7 @@ outputs:
       build:
         - {{ compiler('c') }}
         - make
-        - openmpi  # [mpi == "openmpi" and (build_platform != target_platform)]
+        - {{ mpi }}  # [mpi == "openmpi" and (build_platform != target_platform)]
       host:
         - {{ mpi }}
         - bison <3.8
@@ -82,7 +82,7 @@ outputs:
       build:
         - {{ compiler('c') }}
         - make
-        - openmpi  # [mpi == "openmpi" and (build_platform != target_platform)]
+        - {{ mpi }}  # [mpi == "openmpi" and (build_platform != target_platform)]
       host:
         - {{ mpi }}
         - flex

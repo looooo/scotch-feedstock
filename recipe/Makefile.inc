@@ -10,7 +10,7 @@ CAT         = cat
 CC         ?= gcc
 CCS        ?= $(CC)
 CCP        ?= $(CC)
-CCD        ?= $(CC)
+CCD        ?= $(CC_FOR_BUILD)
 CFLAGS     := $(CFLAGS) \
     -O3 -I$(PREFIX)/include \
     -DIDXSIZE64 \
