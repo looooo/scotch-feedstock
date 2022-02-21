@@ -210,8 +210,10 @@ Feedstock Maintainers
 =====================
 
 * [@SylvainCorlay](https://github.com/SylvainCorlay/)
+* [@Tobias-Fischer](https://github.com/Tobias-Fischer/)
 * [@basnijholt](https://github.com/basnijholt/)
 * [@dalcinl](https://github.com/dalcinl/)
 * [@davidbrochart](https://github.com/davidbrochart/)
+* [@matthiasdiener](https://github.com/matthiasdiener/)
 * [@minrk](https://github.com/minrk/)
 
