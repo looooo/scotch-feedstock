@@ -47,8 +47,8 @@ if [[ "$PKG_NAME" == "scotch" ]]; then
 
 elif [[ "$PKG_NAME" == "ptscotch" ]]; then
 
-  export CCP=mpicc
-  export CCD=${CCP}
+  # export CCP=mpicc
+  # export CCD=${CCP}
 
   # build
   cd src/
