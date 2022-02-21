@@ -19,8 +19,12 @@ source:
     - use_predefined_headers_metis.patch  # [osx and arm64]
 
 build:
-  skip: true  # [win]
   number: {{ build }}
+  skip: true  # [win]
+  {% set mpi_prefix = "mpi_" + mpi %}
+  string: "{{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}"
+  run_exports:
+    - {{ name }} * {{ mpi_prefix }}_*
 
 outputs:
   - name: scotch
@@ -32,10 +36,9 @@ outputs:
       build:
         - {{ compiler('c') }}
         - make
-        # preserve mpi variant for builds
-        - mpi * {{ mpi }}
+        - openmpi  # [mpi == "openmpi" and (build_platform != target_platform)]
       host:
-        - mpi * {{ mpi }}
+        - {{ mpi }}
         - bison <3.8
         - flex
         - zlib
@@ -79,10 +82,9 @@ outputs:
       build:
         - {{ compiler('c') }}
         - make
-        # preserve mpi variant for builds
-        - mpi * {{ mpi }}
+        - openmpi  # [mpi == "openmpi" and (build_platform != target_platform)]
       host:
-        - mpi * {{ mpi }}
+        - {{ mpi }}
         - flex
         - scotch
         - zlib
