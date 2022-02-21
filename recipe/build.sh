@@ -4,8 +4,6 @@ set -ex
 
 cp $RECIPE_DIR/Makefile.inc src/Makefile.inc
 
-export CCD=$CC_FOR_BUILD
-
 # remove --as-needed, which removes librt
 # even though libscotch requires clock_gettime from librt
 export LDFLAGS="${LDFLAGS/-Wl,--as-needed/}"
@@ -47,8 +45,8 @@ if [[ "$PKG_NAME" == "scotch" ]]; then
 
 elif [[ "$PKG_NAME" == "ptscotch" ]]; then
 
-  # export CCP=mpicc
-  # export CCD=${CCP}
+  export CCP=mpicc
+  export CCD=${CCP}
 
   # build
   cd src/
