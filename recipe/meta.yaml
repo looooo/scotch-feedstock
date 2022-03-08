@@ -15,8 +15,6 @@ source:
   patches:
     - patch1.diff
     - debian-dynamic.patch
-    - use_predefined_headers.patch  # [osx and arm64]
-    - use_predefined_headers_metis.patch  # [osx and arm64]
 
 build:
   skip: true  # [win]
