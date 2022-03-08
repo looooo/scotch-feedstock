@@ -48,7 +48,7 @@ elif [[ "$PKG_NAME" == "ptscotch" ]]; then
 
   # build
   cd src/
-  make ptesmumps
+  make ptesmumps CCD=$CC_FOR_BUILD
   cd ..
 
   # install
