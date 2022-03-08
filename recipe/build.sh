@@ -24,7 +24,7 @@ if [[ "$PKG_NAME" == "scotch" ]]; then
 
   # build
   cd src/
-  make esmumps CCD=$CC_FOR_BUILD
+  make esmumps
   cd ..
 
   # install
@@ -48,7 +48,7 @@ elif [[ "$PKG_NAME" == "ptscotch" ]]; then
 
   # build
   cd src/
-  make ptesmumps CCD=$CC_FOR_BUILD
+  make ptesmumps
   cd ..
 
   # install
