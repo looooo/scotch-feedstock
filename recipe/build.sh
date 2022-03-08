@@ -18,14 +18,9 @@ fi
 # VERSION used in dylib versions in debian makefile patches
 export VERSION=$PKG_VERSION
 
-if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
-  cp $RECIPE_DIR/ptscotch_osx-arm64-$VERSION.h ./src/libscotch/ptscotch.h
-  cp $RECIPE_DIR/ptscotchf_osx-arm64-$VERSION.h ./src/libscotch/ptscotchf.h
-  cp $RECIPE_DIR/scotch_osx-arm64-$VERSION.h ./src/libscotch/scotch.h
-  cp $RECIPE_DIR/scotchf_osx-arm64-$VERSION.h ./src/libscotch/scotchf.h
-  cp $RECIPE_DIR/metis_osx-arm64-$VERSION.h ./src/libscotchmetis/metis.h
-  cp $RECIPE_DIR/parmetis_osx-arm64-$VERSION.h ./src/libscotchmetis/parmetis.h
-fi
+# if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
+#
+# fi
 
 if [[ "$PKG_NAME" == "scotch" ]]; then
 
@@ -48,7 +43,6 @@ if [[ "$PKG_NAME" == "scotch" ]]; then
 elif [[ "$PKG_NAME" == "ptscotch" ]]; then
 
   export CCP=mpicc
-  export CCD=${CCP}
   # This is only used by open-mpi's mpicc
   # ignored in other cases
   export OMPI_CC=$CC
