@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -ex
 
@@ -15,12 +15,10 @@ if [[ $(uname) == "Darwin" ]]; then
 else
   export SONAME="-Wl,-soname,"
 fi
+
 # VERSION used in dylib versions in debian makefile patches
 export VERSION=$PKG_VERSION
 
-# if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
-#
-# fi
 
 if [[ "$PKG_NAME" == "scotch" ]]; then
 
