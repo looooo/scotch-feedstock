@@ -24,7 +24,7 @@ if [[ "$PKG_NAME" == "scotch" ]]; then
 
   # build
   cd src/
-  make esmumps
+  make esmumps CCD=$CC_FOR_BUILD
   cd ..
 
   # install
