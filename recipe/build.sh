@@ -43,7 +43,6 @@ if [[ "$PKG_NAME" == "scotch" ]]; then
 elif [[ "$PKG_NAME" == "ptscotch" ]]; then
 
   export CCP=mpicc
-  export CCD=${CCP}
   # This is only used by open-mpi's mpicc
   # ignored in other cases
   export OMPI_CC=$CC
