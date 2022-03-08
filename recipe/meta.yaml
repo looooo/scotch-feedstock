@@ -15,7 +15,6 @@ source:
   patches:
     - patch1.diff
     - debian-dynamic.patch
-    - dummysizes_cross_compile.patch
 
 build:
   skip: true  # [win]
