@@ -1,5 +1,5 @@
 {% set name = "scotch" %}
-{% set build = 1 %}
+{% set build = 2 %}
 {% set version = "6.0.9" %}
 {% set sha256 = "622b4143cf01c480bb15708b3651b29c25e4aeb00c8c6447ff196aca2eca5c93" %}
 
@@ -15,6 +15,7 @@ source:
   patches:
     - patch1.diff
     - debian-dynamic.patch
+    - dummysizes_cross_compile.patch
 
 build:
   skip: true  # [win]
@@ -33,7 +34,7 @@ outputs:
         # preserve mpi variant for builds
         - mpi * {{ mpi }}
       host:
-        - bison
+        - bison <3.8
         - flex
         - zlib
       run:
@@ -75,6 +76,7 @@ outputs:
       build:
         - {{ compiler('c') }}
         - make
+        - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
       host:
         - flex
         - {{ mpi }}
@@ -127,6 +129,7 @@ about:
     mesh and hypergraph partitioning, and sequential and parallel
     sparse matrix block ordering.
   doc_url: http://gforge.inria.fr/docman/?group_id=248&dirid=326
+  dev_url: https://gitlab.inria.fr/scotch/scotch
 
 extra:
   recipe-maintainers:
@@ -135,3 +138,5 @@ extra:
     - minrk
     - davidbrochart
     - SylvainCorlay
+    - Tobias-Fischer
+    - matthiasdiener
