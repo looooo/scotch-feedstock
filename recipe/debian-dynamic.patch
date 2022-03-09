@@ -177,7 +177,7 @@ Index: scotch/src/libscotch/Makefile
  libscotcherrexit$(LIB)		:	library_error_exit$(OBJ)
 +					$(CC) -shared $(LDFLAGS) $(SONAME)libscotcherrexit-$(VERSION).$(RELEASE)$(SHLIB_EXT) $^ -o libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
 +					ln -sf libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotcherrexit-$(VERSION).$(RELEASE)$(SHLIB_EXT)
-+					ln -s libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotcherrexit$(SHLIB_EXT)
++					ln -sf libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotcherrexit$(SHLIB_EXT)
  					$(AR) $(ARFLAGS) $(@) $(?)
  					-$(RANLIB) $(@)
  
