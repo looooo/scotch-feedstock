@@ -163,7 +163,7 @@ Index: scotch/src/libscotch/Makefile
 +libscotch$(LIB)			:	$(LIBSCOTCHDEPS) libscotcherr$(LIB)
 +					$(CC) -shared $(LDFLAGS) $(SONAME)libscotch-$(VERSION).$(RELEASE)$(SHLIB_EXT) $(LIBSCOTCHDEPS) -L. -lscotcherr -lz -lbz2 -llzma -lpthread -lm -o libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
 +					ln -s libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotch-$(VERSION).$(RELEASE)$(SHLIB_EXT)
-+					ln -s libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotch$(SHLIB_EXT)
++					ln -sf libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotch$(SHLIB_EXT)
 +					$(AR) $(ARFLAGS) $(@) $(LIBSCOTCHDEPS)
  					-$(RANLIB) $(@)
  
