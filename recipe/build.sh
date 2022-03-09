@@ -2,11 +2,9 @@
 
 set -ex
 
-if [[ $(uname) == "Linux" ]]; then
-  cp $RECIPE_DIR/Makefile.inc src/Makefile.inc
-else
-  cp src/Make.inc/Makefile.inc.i686_mac_darwin10 src/Makefile.inc
-fi
+cp $RECIPE_DIR/Makefile.inc src/Makefile.inc
+
+export CCD=$CC_FOR_BUILD
 
 # remove --as-needed, which removes librt
 # even though libscotch requires clock_gettime from librt
@@ -27,6 +25,7 @@ if [[ "$PKG_NAME" == "scotch" ]]; then
   cd src/
   make esmumps
   cd ..
+
   # install
   mkdir -p $PREFIX/lib/
   cp -v lib/*${SHLIB_EXT}* $PREFIX/lib/
@@ -38,18 +37,19 @@ if [[ "$PKG_NAME" == "scotch" ]]; then
   mv include/metis.h include/scotch/
   cp -rv include/* $PREFIX/include/
 
-fi # scotch
-
-
-if [[ "$PKG_NAME" == "ptscotch" ]]; then
+elif [[ "$PKG_NAME" == "ptscotch" ]]; then
 
   export CCP=mpicc
-  export CCD=${CCP}
+  # This is only used by open-mpi's mpicc
+  # ignored in other cases
+  export OMPI_CC=$CC
+  export OPAL_PREFIX=$PREFIX
 
   # build
   cd src/
   make ptesmumps
   cd ..
+
   # install
   mkdir -p $PREFIX/lib/
   cp -v lib/libpt*${SHLIB_EXT}* $PREFIX/lib/

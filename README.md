@@ -9,6 +9,8 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/scotch-feedstoc
 
 Summary: SCOTCH: Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package
 
+Development: https://gitlab.inria.fr/scotch/scotch
+
 Documentation: http://gforge.inria.fr/docman/?group_id=248&dirid=326
 
 Software package and libraries for sequential and parallel
@@ -88,6 +90,20 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=master">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=master&jobName=osx&configuration=osx_64_mpiopenmpi" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_mpimpich</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=master&jobName=osx&configuration=osx_arm64_mpimpich" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_mpiopenmpi</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=master&jobName=osx&configuration=osx_arm64_mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr>
@@ -194,6 +210,7 @@ Feedstock Maintainers
 =====================
 
 * [@SylvainCorlay](https://github.com/SylvainCorlay/)
+* [@Tobias-Fischer](https://github.com/Tobias-Fischer/)
 * [@basnijholt](https://github.com/basnijholt/)
 * [@dalcinl](https://github.com/dalcinl/)
 * [@davidbrochart](https://github.com/davidbrochart/)

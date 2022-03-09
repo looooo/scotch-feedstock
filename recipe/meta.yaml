@@ -1,6 +1,5 @@
 {% set name = "scotch" %}
 {% set version = "6.1.3" %}
-
 {% set major = version.split('.')[0] %}
 {% set minor = version.split('.')[1] %}
 
@@ -15,6 +14,7 @@ source:
   patches:
     - patch1.diff
     - debian-dynamic.patch
+    - dummysizes_cross_compile.patch
 
 build:
   skip: true  # [win]
@@ -77,6 +77,7 @@ outputs:
       build:
         - {{ compiler('c') }}
         - make
+        - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
       host:
         - flex
         - {{ mpi }}
@@ -129,6 +130,7 @@ about:
     mesh and hypergraph partitioning, and sequential and parallel
     sparse matrix block ordering.
   doc_url: http://gforge.inria.fr/docman/?group_id=248&dirid=326
+  dev_url: https://gitlab.inria.fr/scotch/scotch
 
 extra:
   recipe-maintainers:
@@ -137,4 +139,5 @@ extra:
     - minrk
     - davidbrochart
     - SylvainCorlay
+    - Tobias-Fischer
     - matthiasdiener
