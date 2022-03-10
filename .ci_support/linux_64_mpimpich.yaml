@@ -1,3 +1,5 @@
+bzip2:
+- '1'
 c_compiler:
 - gcc
 c_compiler_version:
@@ -18,16 +20,26 @@ flex:
 - 2.6.4
 mpi:
 - mpich
+mpich:
+- '4'
+openmpi:
+- '4'
 pin_run_as_build:
+  bzip2:
+    max_pin: x
   scotch:
     min_pin: x.x.x
     max_pin: x.x.x
+  xz:
+    max_pin: x.x
   zlib:
     max_pin: x.x
 scotch:
 - 6.0.9
 target_platform:
 - linux-64
+xz:
+- '5.2'
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
