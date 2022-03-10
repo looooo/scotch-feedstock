@@ -19,6 +19,7 @@ fi
 # VERSION used in dylib versions in debian makefile patches
 export VERSION=$PKG_VERSION
 
+
 if [[ "$PKG_NAME" == "scotch" ]]; then
 
   # build
