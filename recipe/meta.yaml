@@ -12,9 +12,8 @@ source:
   url: https://gitlab.inria.fr/scotch/scotch/-/archive/v{{ version }}/scotch-v{{ version }}.tar.gz
   sha256: 0618e9bc33c02172ea7351600fce4fccd32fe00b3359c4aabb5e415f17c06fed
   patches:
-    - patch1.diff
-    - debian-dynamic.patch
-    - dummysizes_cross_compile.patch
+    - 0001-Remove-unconditional-testing.patch
+    - 0002-add-COMPONENT-labels-for-easier-split-installation.patch
 
 build:
   skip: true  # [win]
@@ -23,40 +22,37 @@ build:
 outputs:
   - name: scotch
     build:
-      script: ${RECIPE_DIR}/build.sh
+      script: ${RECIPE_DIR}/build-scotch.sh
       run_exports:
         - {{ pin_subpackage('scotch', max_pin='x.x.x') }}
+      ignore_run_exports:
+        - {{ mpi }}
     requirements:
       build:
         - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ compiler('fortran') }}
+        - cmake
         - make
-        # preserve mpi variant for builds
-        - mpi * {{ mpi }}
+        - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
       host:
         - bison <3.8
         - flex
         - zlib
         - bzip2
         - xz
+        - {{ mpi }}
       run:
         - zlib
 
     test:
       requires:
         - {{ compiler('c') }}
-      source_files:
-        - src/check
-        - src/libscotch/common.h
-        - src/libscotch/module.h
-        - src/libscotch/fibo.h
-      files:
-        - Makefile.inc
       commands:
         {% for lib in [
           'scotch',
           'scotcherr',
           'scotcherrexit',
-          'scotchmetis',
           'esmumps',
         ]
         %}
@@ -66,43 +62,54 @@ outputs:
         - test -f "${PREFIX}/include/scotch.h"
         - test -f "${PREFIX}/include/scotchf.h"
         - test -f "${PREFIX}/include/esmumps.h"
-        - test -f "${PREFIX}/include/scotch/metis.h"
         - test ! -f "${PREFIX}/include/metis.h"
+  - name: scotchmetis
+    build:
+      script: cmake --install ./build --component=scotchmetis
+      run_exports:
+        - {{ pin_subpackage('scotchmetis', max_pin='x.x.x') }}
+    requirements:
+      build:
+        - cmake
+      run:
+        - {{ pin_subpackage('scotch', exact=True) }}
+  - name: ptscotchparmetis
+    build:
+      script: cmake --install ./build --component=ptscotchparmetis
+      run_exports:
+        - {{ pin_subpackage('ptscotchparmetis', max_pin='x.x.x') }}
+    requirements:
+      build:
+        - cmake
+      run:
+        - {{ pin_subpackage('scotch', exact=True) }}
   - name: ptscotch
     build:
-      script: ${RECIPE_DIR}/build.sh
+      script:
+        - cmake --install ./build --component=ptscotch
+        # there is no ptesmumps when using cmake
+        - ln -s "libesmumps${SHLIB_EXT}" "$PREFIX/lib/libptesmumps${SHLIB_EXT}"
+        - ln -s "libptesmumps${SHLIB_EXT}" "$PREFIX/lib/libptesmumps-{{ major }}.{{ minor }}${SHLIB_EXT}"
       run_exports:
         - {{ pin_subpackage('ptscotch', max_pin='x.x.x') }}
     requirements:
       build:
-        - {{ compiler('c') }}
-        - make
-        - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
+        - cmake
       host:
-        - flex
         - {{ mpi }}
-        - scotch
-        - zlib
+        - {{ pin_subpackage("scotch", exact=True) }}
       run:
-        - {{ mpi }}
-        - {{ pin_subpackage('scotch', max_pin='x.x.x') }}
-        - zlib
+        - {{ pin_subpackage("scotch", exact=True) }}
     test:
       requires:
+        - cmake
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-      source_files:
-        - src/check
-        - src/libscotch/common.h
-        - src/libscotch/module.h
-      files:
-        - Makefile.inc
       commands:
         {% for lib in [
           'ptscotch',
           'ptscotcherr',
           'ptscotcherrexit',
-          'ptscotchparmetis',
           'ptesmumps',
         ]
         %}
@@ -112,7 +119,6 @@ outputs:
         - test -f "${PREFIX}/include/ptscotch.h"
         - test -f "${PREFIX}/include/ptscotchf.h"
         - test -f "${PREFIX}/include/esmumps.h"
-        - test -f "${PREFIX}/include/scotch/parmetis.h"
         - test ! -f "${PREFIX}/include/parmetis.h"
     about:
       summary: 'PT-SCOTCH: (Parallel) Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package'

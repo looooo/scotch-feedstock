@@ -1,0 +1,139 @@
+From 3354342904d571fee751c4325d1c6b8d4c6f3e8b Mon Sep 17 00:00:00 2001
+From: Min RK <benjaminrk@gmail.com>
+Date: Fri, 20 May 2022 15:11:19 +0200
+Subject: [PATCH 2/2] add COMPONENT labels for easier split installation
+
+---
+ src/CMakeLists.txt                |  1 +
+ src/esmumps/CMakeLists.txt        |  2 ++
+ src/libscotch/CMakeLists.txt      | 18 +++++++++++++++---
+ src/libscotchmetis/CMakeLists.txt |  5 +++++
+ src/scotch/CMakeLists.txt         |  4 ++--
+ 5 files changed, 25 insertions(+), 5 deletions(-)
+
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 3a924e6..253ea15 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -184,4 +184,5 @@ write_basic_package_version_file(SCOTCHConfigVersion.cmake
+ # Install config files
+ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/SCOTCHConfig.cmake
+   ${CMAKE_CURRENT_BINARY_DIR}/SCOTCHConfigVersion.cmake
++  COMPONENT scotch
+   DESTINATION ${LIBRARY_INSTALL_DIR}/cmake/scotch)
+diff --git a/src/esmumps/CMakeLists.txt b/src/esmumps/CMakeLists.txt
+index 47bafee..6b9ddfa 100644
+--- a/src/esmumps/CMakeLists.txt
++++ b/src/esmumps/CMakeLists.txt
+@@ -106,11 +106,13 @@ add_dependencies(main_esmumps scotch_h)
+ 
+ # libEsMUMPS targets install
+ install(EXPORT esmumpsTargets
++  COMPONENT esmumps
+   FILE esmumpsTargets.cmake
+   NAMESPACE SCOTCH::
+   DESTINATION lib/cmake/scotch)
+ 
+ install(TARGETS esmumps
++  COMPONENT esmumps
+   EXPORT esmumpsTargets
+   ARCHIVE DESTINATION lib
+   LIBRARY DESTINATION lib
+diff --git a/src/libscotch/CMakeLists.txt b/src/libscotch/CMakeLists.txt
+index d1ca5b7..4f29278 100644
+--- a/src/libscotch/CMakeLists.txt
++++ b/src/libscotch/CMakeLists.txt
+@@ -785,9 +785,6 @@ if(BUILD_PTSCOTCH)
+ endif(BUILD_PTSCOTCH)
+ 
+ set(TARGETS_LIST "scotch;scotcherr;scotcherrexit")
+-if(BUILD_PTSCOTCH)
+-  set(TARGETS_LIST ${TARGETS_LIST} "ptscotch;ptscotcherr;ptscotcherrexit")
+-endif(BUILD_PTSCOTCH)
+ 
+ foreach(_target ${TARGETS_LIST})
+   install(EXPORT ${_target}Targets
+@@ -800,4 +797,19 @@ foreach(_target ${TARGETS_LIST})
+     ARCHIVE DESTINATION lib
+     LIBRARY DESTINATION lib
+     PUBLIC_HEADER DESTINATION include)
++
++  if (BUILD_PTSCOTCH)
++    install(EXPORT pt${_target}Targets
++      COMPONENT ptscotch
++      FILE pt${_target}Targets.cmake
++      NAMESPACE SCOTCH::
++      DESTINATION lib/cmake/scotch)
++
++    install(TARGETS pt${_target}
++      COMPONENT ptscotch
++      EXPORT pt${_target}Targets
++      ARCHIVE DESTINATION lib
++      LIBRARY DESTINATION lib
++      PUBLIC_HEADER DESTINATION include)
++  endif()
+ endforeach()
+diff --git a/src/libscotchmetis/CMakeLists.txt b/src/libscotchmetis/CMakeLists.txt
+index 80cc2ac..7db7a60 100644
+--- a/src/libscotchmetis/CMakeLists.txt
++++ b/src/libscotchmetis/CMakeLists.txt
+@@ -108,11 +108,13 @@ foreach(version 3 5)
+ 
+   # libScotchMeTiS targets install
+   install(EXPORT scotchmetisTargets
++    COMPONENT scotchmetis
+     FILE scotchmetisTargets.cmake
+     NAMESPACE SCOTCH::
+     DESTINATION lib/cmake/scotch)
+   if(INSTALL_METIS_HEADERS)
+     install(TARGETS scotchmetisv${version}
++      COMPONENT scotchmetis
+       EXPORT scotchmetisTargets
+       ARCHIVE DESTINATION lib
+       LIBRARY DESTINATION lib
+@@ -172,18 +174,21 @@ if(BUILD_PTSCOTCH)
+ 
+     # libPTScotchParMeTiS targets install
+     install(EXPORT ptscotchparmetisTargets
++      COMPONENT ptscotchparmetis
+       FILE ptscotchparmetisTargets.cmake
+       NAMESPACE SCOTCH::
+       DESTINATION lib/cmake/scotch)
+ 
+     if(INSTALL_METIS_HEADERS)
+       install(TARGETS ptscotchparmetisv${version}
++        COMPONENT ptscotchparmetis
+         EXPORT ptscotchparmetisTargets
+         ARCHIVE DESTINATION lib
+         LIBRARY DESTINATION lib
+         PUBLIC_HEADER DESTINATION include)
+     else()
+       install(TARGETS ptscotchparmetisv${version}
++        COMPONENT ptscotchparmetis
+         EXPORT ptscotchparmetisTargets
+         ARCHIVE DESTINATION lib
+         LIBRARY DESTINATION lib)
+diff --git a/src/scotch/CMakeLists.txt b/src/scotch/CMakeLists.txt
+index 3974f4f..0c7800d 100644
+--- a/src/scotch/CMakeLists.txt
++++ b/src/scotch/CMakeLists.txt
+@@ -118,7 +118,7 @@ target_compile_definitions(gpart PRIVATE SCOTCH_COMPILE_PART)
+ 
+ # Install all Scotch executables
+ foreach(target ${scotch_exe})
+-  install(TARGETS ${target} RUNTIME DESTINATION bin)
++  install(TARGETS ${target} COMPONENT scotch RUNTIME DESTINATION bin)
+ endforeach()
+ 
+ # Executables linked against the libPTScotch library
+@@ -165,6 +165,6 @@ if(BUILD_PTSCOTCH)
+   target_compile_definitions(dgpart PRIVATE SCOTCH_COMPILE_PART)
+   # Install all PT-Scotch executables
+   foreach(target ${ptscotch_exe})
+-     install(TARGETS ${target} RUNTIME DESTINATION bin)
++     install(TARGETS ${target} COMPONENT ptscotch RUNTIME DESTINATION bin)
+   endforeach()
+  endif(BUILD_PTSCOTCH)
+-- 
+2.35.3
+

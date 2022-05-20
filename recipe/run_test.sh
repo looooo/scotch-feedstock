@@ -1,22 +1,12 @@
 #!/bin/bash
 set -xeuo pipefail
 
-export MAKECHECKARGS="
-SCOTCHLIBDIR=$PREFIX/lib
-SCOTCHBINDIR=$PREFIX/bin
-SCOTCHINCLUDEDIR=$PREFIX/include
-LIB=$SHLIB_EXT
-"
-
-
-cp Makefile.inc src/
-cd src/check
-make clean
+# cd build ctest
 
 if [[ "${PKG_NAME}" == "scotch" ]]
 then
 
-make check $MAKECHECKARGS
+# make check $MAKECHECKARGS
 
 mord -V
 gmap -V
