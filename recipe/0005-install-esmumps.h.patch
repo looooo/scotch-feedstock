@@ -1,0 +1,25 @@
+From 6e68135264f43323f01d52e34bc1e75330759960 Mon Sep 17 00:00:00 2001
+From: Min RK <benjaminrk@gmail.com>
+Date: Fri, 20 May 2022 21:24:52 +0200
+Subject: [PATCH 5/5] install esmumps.h
+
+---
+ src/esmumps/CMakeLists.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/esmumps/CMakeLists.txt b/src/esmumps/CMakeLists.txt
+index 009b5b9..c3c51d7 100644
+--- a/src/esmumps/CMakeLists.txt
++++ b/src/esmumps/CMakeLists.txt
+@@ -96,6 +96,8 @@ target_include_directories(esmumps PRIVATE
+   $<BUILD_INTERFACE:${GENERATED_INCLUDE_DIR}>
+   $<INSTALL_INTERFACE:include>)
+ 
++set_target_properties(esmumps PROPERTIES PUBLIC_HEADER "${GENERATED_INCLUDE_DIR}/esmumps.h")
++
+ target_link_libraries(esmumps PRIVATE scotch)
+ add_dependencies(esmumps scotch_h)
+ add_executable(main_esmumps main_esmumps.c ${esmumps_header})
+-- 
+2.35.3
+
