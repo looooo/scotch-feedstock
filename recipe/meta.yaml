@@ -137,10 +137,6 @@ outputs:
       commands:
         - test -f "${PREFIX}/bin/gord"
         - test -f "${PREFIX}/bin/dgord"
-        - export OMPI_MCA_plm=isolated                          # [mpi == 'openmpi']
-        - export OMPI_MCA_btl_vader_single_copy_mechanism=none  # [mpi == 'openmpi']
-        - export OMPI_MCA_rmaps_base_oversubscribe=yes          # [mpi == 'openmpi']
-        - dgord -h
     about:
       summary: 'PT-SCOTCH: (Parallel) Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package'
 
