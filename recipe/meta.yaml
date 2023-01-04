@@ -93,7 +93,6 @@ outputs:
           'ptscotch',
           'ptscotcherr',
           'ptscotcherrexit',
-          # 'ptesmumps',
         ]
         %}
         - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"
