@@ -1,5 +1,5 @@
 {% set name = "scotch" %}
-{% set version = "7.0.1" %}
+{% set version = "7.0.2" %}
 {% set major = version.split('.')[0] %}
 {% set minor = version.split('.')[1] %}
 
@@ -10,7 +10,7 @@ package:
 source:
   fn: {{ name }}-v{{ version }}.tar.gz
   url: https://gitlab.inria.fr/scotch/scotch/-/archive/v{{ version }}/scotch-v{{ version }}.tar.gz
-  sha256: 0618e9bc33c02172ea7351600fce4fccd32fe00b3359c4aabb5e415f17c06fed
+  sha256: 17db72097dea75522570fe26ece62d99d480a2ea49954181d87b3e1dc913e05b
   patches:
     - 0001-Remove-unconditional-testing.patch
     - 0002-add-COMPONENT-labels-for-easier-split-installation.patch
