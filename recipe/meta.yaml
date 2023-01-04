@@ -120,7 +120,6 @@ outputs:
       commands:
         - test -f "${PREFIX}/bin/gord"
         - test ! -f "${PREFIX}/bin/dgord"
-        - dgord -h
 
   - name: ptscotch
     build:
