@@ -11,7 +11,7 @@ fi
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
   (
     mkdir -p src/dummysizes/build-host
-    pushd build-host
+    pushd src/dummysizes/build-host
 
     cp $RECIPE_DIR/CMakeLists-dummysizes.txt $SRC_DIR/src/dummysizes/CMakeLists.txt
 
