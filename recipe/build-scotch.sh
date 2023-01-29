@@ -10,12 +10,6 @@ else
   shared_flags="-Wl,-shared"
 fi
 
-if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" && "${mpi}" == "openmpi" ]]; then
-  export OPAL_PREFIX="$PREFIX"
-  # export OMPI_CC="$CC"
-  # export OPAL_CC="$CC"
-fi
-
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
   (
     mkdir -p $SRC_DIR/src/dummysizes/build-host
@@ -42,6 +36,11 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
   BUILD_DUMMYSIZES=OFF
 else
   BUILD_DUMMYSIZES=ON
+fi
+
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" && "${mpi}" == "openmpi" ]]; then
+  export OPAL_PREFIX="$PREFIX"
+  export OMPI_CC="$CC"
 fi
 
 cmake \
