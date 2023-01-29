@@ -17,6 +17,7 @@ source:
     - 0003-put-metis-headers-in-include-scotch.patch
     - 0004-fix-language-requirement.patch
     - 0005-install-esmumps.h.patch
+    - 0006-use-external-dummysizes.patch
 
 build:
   skip: true  # [win]

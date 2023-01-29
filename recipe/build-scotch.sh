@@ -2,6 +2,8 @@
 
 set -ex
 
+cd $SRC_DIR
+
 if [[ $(uname) == "Darwin" ]]; then
   shared_flags="-Wl,-undefined -Wl,dynamic_lookup"
 else
@@ -11,13 +13,13 @@ fi
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" && "${mpi}" == "openmpi" ]]; then
   export OPAL_PREFIX="$PREFIX"
   # export OMPI_CC="$CC"
-  export OPAL_CC="$CC"
+  # export OPAL_CC="$CC"
 fi
 
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
   (
-    mkdir -p src/dummysizes/build-host
-    pushd src/dummysizes/build-host
+    mkdir -p $SRC_DIR/src/dummysizes/build-host
+    pushd $SRC_DIR/src/dummysizes/build-host
 
     cp $RECIPE_DIR/CMakeLists-dummysizes.txt $SRC_DIR/src/dummysizes/CMakeLists.txt
 
@@ -33,11 +35,13 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
       -DCMAKE_PREFIX_PATH=$BUILD_PREFIX \
       -DCMAKE_INSTALL_PREFIX=$BUILD_PREFIX \
       -DCMAKE_INSTALL_LIBDIR=lib \
-      -DCMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP=True \
-      -DBUILD_PTSCOTCH=OFF
+      -DCMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP=True
 
     cmake --build . --parallel ${CPU_COUNT} --config Release
   )
+  BUILD_DUMMYSIZES=OFF
+else
+  BUILD_DUMMYSIZES=ON
 fi
 
 cmake \
@@ -45,6 +49,7 @@ cmake \
   -D CMAKE_SHARED_LINKER_FLAGS="$shared_flags" \
   -D CMAKE_INSTALL_PREFIX=$PREFIX \
   -D BUILD_SHARED_LIBS=ON \
+  -D BUILD_DUMMYSIZES=$BUILD_DUMMYSIZES \
   -B build \
   .
 
