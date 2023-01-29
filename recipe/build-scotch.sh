@@ -41,6 +41,7 @@ fi
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" && "${mpi}" == "openmpi" ]]; then
   export OPAL_PREFIX="$PREFIX"
   # export OMPI_CC="$CC"
+  export CC=$PREFIX/bin/mpicc
 fi
 
 cmake \
