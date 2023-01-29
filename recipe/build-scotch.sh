@@ -34,6 +34,7 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
     cmake --build . --parallel ${CPU_COUNT} --config Release
   )
   BUILD_DUMMYSIZES=OFF
+  export CC=mpicc
 else
   BUILD_DUMMYSIZES=ON
 fi
