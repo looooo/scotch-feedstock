@@ -43,9 +43,9 @@ fi
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" && "${mpi}" == "openmpi" ]]; then
   export OPAL_PREFIX="$PREFIX"
   # export OMPI_CC="$CC"
-  export OMPI_MCA_plm=isolated
-  export OMPI_MCA_btl_vader_single_copy_mechanism=none
-  export OMPI_MCA_rmaps_base_oversubscribe=yes
+  # export OMPI_MCA_plm=isolated
+  # export OMPI_MCA_btl_vader_single_copy_mechanism=none
+  # export OMPI_MCA_rmaps_base_oversubscribe=yes
 fi
 
 cmake ${CMAKE_ARGS} \
