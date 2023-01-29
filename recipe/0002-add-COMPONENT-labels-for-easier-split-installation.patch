@@ -33,10 +33,10 @@ index 3a924e6..253ea15 100644
 +  COMPONENT scotch
    DESTINATION ${LIBRARY_INSTALL_DIR}/cmake/scotch)
 diff --git a/src/esmumps/CMakeLists.txt b/src/esmumps/CMakeLists.txt
-index 47bafee..009b5b9 100644
+index 62114b5..2b78e71 100644
 --- a/src/esmumps/CMakeLists.txt
 +++ b/src/esmumps/CMakeLists.txt
-@@ -106,11 +106,13 @@ add_dependencies(main_esmumps scotch_h)
+@@ -123,11 +123,13 @@ add_dependencies(test_fax scotch_h)
  
  # libEsMUMPS targets install
  install(EXPORT esmumpsTargets
@@ -50,6 +50,21 @@ index 47bafee..009b5b9 100644
    EXPORT esmumpsTargets
    ARCHIVE DESTINATION lib
    LIBRARY DESTINATION lib
+@@ -148,11 +150,13 @@ add_dependencies(ptesmumps scotch_h)
+ 
+ # libptesmumps targets install
+ install(EXPORT ptesmumpsTargets
++  COMPONENT libptscotch
+   FILE ptesmumpsTargets.cmake
+   NAMESPACE SCOTCH::
+   DESTINATION lib/cmake/scotch)
+ 
+ install(TARGETS ptesmumps
++  COMPONENT libptscotch
+   EXPORT ptesmumpsTargets
+   ARCHIVE DESTINATION lib
+   LIBRARY DESTINATION lib
+
 diff --git a/src/libscotch/CMakeLists.txt b/src/libscotch/CMakeLists.txt
 index d1ca5b7..c2e0e3a 100644
 --- a/src/libscotch/CMakeLists.txt
