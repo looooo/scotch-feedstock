@@ -71,9 +71,6 @@ outputs:
     build:
       script:
         - cmake --install ./build --component=libptscotch
-        # there is no ptesmumps when using cmake
-        # - ln -s "libesmumps${SHLIB_EXT}" "$PREFIX/lib/libptesmumps${SHLIB_EXT}"
-        # - ln -s "libptesmumps${SHLIB_EXT}" "$PREFIX/lib/libptesmumps-{{ major }}.{{ minor }}${SHLIB_EXT}"
       run_exports:
         - {{ pin_subpackage('ptscotch', max_pin='x.x.x') }}
     requirements:
@@ -94,6 +91,7 @@ outputs:
           'ptscotch',
           'ptscotcherr',
           'ptscotcherrexit',
+          'ptesmumps'
         ]
         %}
         - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"
