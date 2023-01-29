@@ -43,7 +43,7 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" && "${mpi}" == "openmpi" ]]; then
   export OMPI_CC="$CC"
 fi
 
-cmake \
+cmake ${CMAKE_ARGS} \
   -D CMAKE_BUILD_TYPE=Release \
   -D CMAKE_SHARED_LINKER_FLAGS="$shared_flags" \
   -D CMAKE_INSTALL_PREFIX=$PREFIX \
