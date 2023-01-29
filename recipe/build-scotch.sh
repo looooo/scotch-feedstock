@@ -34,7 +34,8 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
     cmake --build . --parallel ${CPU_COUNT} --config Release
   )
   BUILD_DUMMYSIZES=OFF
-  export CC=mpicc
+  # export CC=mpicc
+  export CMAKE_ARGS="${CMAKE_ARGS} -DMPI_RUN_RESULT_C_libver_mpi_normal:INTERNAL=1 -DMPI_RUN_RESULT_C_libver_mpi_normal__TRYRUN_OUTPUT:STRING="""
 else
   BUILD_DUMMYSIZES=ON
 fi
@@ -45,7 +46,6 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" && "${mpi}" == "openmpi" ]]; then
   export OMPI_MCA_plm=isolated
   export OMPI_MCA_btl_vader_single_copy_mechanism=none
   export OMPI_MCA_rmaps_base_oversubscribe=yes
-
 fi
 
 cmake ${CMAKE_ARGS} \
