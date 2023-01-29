@@ -8,12 +8,9 @@ else
   shared_flags="-Wl,-shared"
 fi
 
-export CXX=$(basename ${CXX})
-
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" && "${mpi}" == "openmpi" ]]; then
   export OPAL_PREFIX="$PREFIX"
-  export OMPI_CC="$CC"
-  export OMPI_CXX="$CXX"
+  # export OMPI_CC="$CC"
 fi
 
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
@@ -24,13 +21,11 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
     cp $RECIPE_DIR/CMakeLists-dummysizes.txt $SRC_DIR/src/dummysizes/CMakeLists.txt
 
     export CC=$CC_FOR_BUILD
-    export CXX=$CXX_FOR_BUILD
     export LDFLAGS=${LDFLAGS//$PREFIX/$BUILD_PREFIX}
     export PKG_CONFIG_PATH=${PKG_CONFIG_PATH//$PREFIX/$BUILD_PREFIX}
 
     # Unset them as we're ok with builds that are either slow or non-portable
     unset CFLAGS
-    unset CXXFLAGS
 
     cmake .. \
       -DCMAKE_BUILD_TYPE=Release \
