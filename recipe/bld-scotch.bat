@@ -12,7 +12,7 @@ cmake ^
   %SRC_DIR%
 if errorlevel 1 exit 1
 
-cmake --build . --config Release
+cmake --build ./build --config Release
 if errorlevel 1 exit 1
-cmake --install . --component=libscotch
+cmake --install ./build --component=libscotch
 if errorlevel 1 exit 1
