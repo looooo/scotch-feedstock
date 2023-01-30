@@ -25,7 +25,7 @@ outputs:
   - name: libscotch
     build:
       script: ${RECIPE_DIR}/build-scotch.sh  # [unix]
-      script: ${RECIPE_DIR}/bld-scotch.bat   # [win]
+      script: bld-scotch.bat   # [win]
       run_exports:
         - {{ pin_subpackage('scotch', max_pin='x.x.x') }}
       ignore_run_exports:
