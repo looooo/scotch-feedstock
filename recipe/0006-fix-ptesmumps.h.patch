@@ -1,0 +1,13 @@
+diff --git a/src/esmumps/CMakeLists.txt b/src/esmumps/CMakeLists.txt
+index 62114b5..24cda42 100644
+--- a/src/esmumps/CMakeLists.txt
++++ b/src/esmumps/CMakeLists.txt
+@@ -136,7 +136,7 @@ install(TARGETS esmumps
+ # Dummy PTEsMUMPS library file
+ add_library(ptesmumps ${esmumps_src} ${esmumps_headers})
+ 
+-set_target_properties(ptesmumps PROPERTIES PUBLIC_HEADER "${GENERATED_INCLUDE_DIR}/esmumps.h")
++set_target_properties(ptesmumps PROPERTIES PUBLIC_HEADER "${GENERATED_INCLUDE_DIR}/ptesmumps.h")
+ 
+ target_include_directories(ptesmumps PRIVATE
+   $<BUILD_INTERFACE:${LIBSCOTCH_INCLUDE_DIR}>
