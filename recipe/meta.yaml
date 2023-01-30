@@ -19,13 +19,13 @@ source:
     - 0005-use-external-dummysizes.patch
 
 build:
-  skip: true  # [win]
   number: 0
 
 outputs:
   - name: libscotch
     build:
-      script: ${RECIPE_DIR}/build-scotch.sh
+      script: ${RECIPE_DIR}/build-scotch.sh  # [unix]
+      script: ${RECIPE_DIR}/bld-scotch.bat   # [win]
       run_exports:
         - {{ pin_subpackage('scotch', max_pin='x.x.x') }}
       ignore_run_exports:
@@ -36,9 +36,9 @@ outputs:
         - {{ compiler('fortran') }}
         - cmake
         - make
-        - {{ mpi }}  # [build_platform != target_platform]
-        - bison <3.8
-        - flex
+        - {{ mpi }}   # [build_platform != target_platform]
+        - bison <3.8  # [unix]
+        - flex        # [unix]
       host:
         - zlib
         - bzip2
@@ -58,14 +58,14 @@ outputs:
           'esmumps',
         ]
         %}
-        - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"
+        - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"  # [unix]
         {% endfor %}
-        - test -f "${PREFIX}/include/scotch.h"
-        - test -f "${PREFIX}/include/scotchf.h"
-        - test -f "${PREFIX}/include/esmumps.h"
-        - test ! -f "${PREFIX}/include/metis.h"
-        - test -f "${PREFIX}/include/scotch/metis.h"
-        - test ! -f "${PREFIX}/bin/gord"
+        - test -f "${PREFIX}/include/scotch.h"        # [unix]
+        - test -f "${PREFIX}/include/scotchf.h"       # [unix]
+        - test -f "${PREFIX}/include/esmumps.h"       # [unix]
+        - test ! -f "${PREFIX}/include/metis.h"       # [unix]
+        - test -f "${PREFIX}/include/scotch/metis.h"  # [unix]
+        - test ! -f "${PREFIX}/bin/gord"              # [unix]
 
   - name: libptscotch
     build:
@@ -94,14 +94,14 @@ outputs:
           'ptesmumps'
         ]
         %}
-        - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"
+        - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"  # [unix]
         {% endfor %}
-        - test -f "${PREFIX}/include/ptscotch.h"
-        - test -f "${PREFIX}/include/ptscotchf.h"
-        - test -f "${PREFIX}/include/esmumps.h"
-        - test -f "${PREFIX}/include/scotch/parmetis.h"
-        - test ! -f "${PREFIX}/include/parmetis.h"
-        - test ! -f "${PREFIX}/bin/dgord"
+        - test -f "${PREFIX}/include/ptscotch.h"            # [unix]
+        - test -f "${PREFIX}/include/ptscotchf.h"           # [unix]
+        - test -f "${PREFIX}/include/esmumps.h"             # [unix]
+        - test -f "${PREFIX}/include/scotch/parmetis.h"     # [unix]
+        - test ! -f "${PREFIX}/include/parmetis.h"          # [unix]
+        - test ! -f "${PREFIX}/bin/dgord"                   # [unix]
     about:
       summary: 'PT-SCOTCH: (Parallel) Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package'
 
@@ -117,8 +117,8 @@ outputs:
         - {{ pin_subpackage('libscotch', exact=True) }}
     test:
       commands:
-        - test -f "${PREFIX}/bin/gord"
-        - test ! -f "${PREFIX}/bin/dgord"
+        - test -f "${PREFIX}/bin/gord"     # [unix]
+        - test ! -f "${PREFIX}/bin/dgord"  # [unix]
 
   - name: ptscotch
     build:
@@ -133,8 +133,8 @@ outputs:
         - {{ pin_subpackage('scotch', exact=True) }}
     test:
       commands:
-        - test -f "${PREFIX}/bin/gord"
-        - test -f "${PREFIX}/bin/dgord"
+        - test -f "${PREFIX}/bin/gord"   # [unix]
+        - test -f "${PREFIX}/bin/dgord"  # [unix]
     about:
       summary: 'PT-SCOTCH: (Parallel) Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package'
 
