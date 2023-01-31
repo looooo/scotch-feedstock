@@ -1,0 +1,26 @@
+diff --git a/src/libscotch/common.c b/src/libscotch/common.c
+index 818355f..5acc48f 100644
+--- a/src/libscotch/common.c
++++ b/src/libscotch/common.c
+@@ -113,7 +113,7 @@ clockGet (void)
+ #ifdef MPI_INT
+   return (MPI_Wtime ());
+ #else /* MPI_INT */
+-#if defined COMMON_WINDOWS
++#if defined COMMON_OS_WINDOWS
+   double              res = 0.0;
+   LARGE_INTEGER       fq;
+   if (QueryPerformanceFrequency (&fq) == 0) {
+diff --git a/src/libscotch/common.h b/src/libscotch/common.h
+index c660e11..3cc0934 100644
+--- a/src/libscotch/common.h
++++ b/src/libscotch/common.h
+@@ -101,7 +101,7 @@
+ #define pipe(fd)                    _pipe (fd, 32768, O_BINARY)
+ #endif /* COMMON_OS_WINDOWS */
+ 
+-#if ((! defined COMMON_WINDOWS) && (! defined HAVE_NOT_UNISTD_H))
++#if ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H))
+ #include            <unistd.h>
+ #endif /* ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H)) */
+ #include            <ctype.h>
