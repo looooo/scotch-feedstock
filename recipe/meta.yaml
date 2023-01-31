@@ -47,6 +47,7 @@ outputs:
         - bzip2
         - xz
         - {{ mpi }}
+        - pthreads-win32  # [win]
       run:
         - zlib
 
