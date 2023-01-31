@@ -50,6 +50,7 @@ outputs:
         - pthreads-win32  # [win]
       run:
         - zlib
+        - pthreads-win32  # [win]
 
     test:
       requires:
