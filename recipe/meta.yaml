@@ -1,5 +1,5 @@
 {% set name = "scotch" %}
-{% set version = "6.1.3" %}
+{% set version = "7.0.2" %}
 {% set major = version.split('.')[0] %}
 {% set minor = version.split('.')[1] %}
 
@@ -10,114 +10,142 @@ package:
 source:
   fn: {{ name }}-v{{ version }}.tar.gz
   url: https://gitlab.inria.fr/scotch/scotch/-/archive/v{{ version }}/scotch-v{{ version }}.tar.gz
-  sha256: 4e54f056199e6c23d46581d448fcfe2285987e5554a0aa527f7931684ef2809e
+  sha256: 17db72097dea75522570fe26ece62d99d480a2ea49954181d87b3e1dc913e05b
   patches:
-    - patch1.diff
-    - debian-dynamic.patch
-    - dummysizes_cross_compile.patch
+    - 0001-Remove-unconditional-testing.patch
+    - 0002-add-COMPONENT-labels-for-easier-split-installation.patch
+    - 0003-put-metis-headers-in-include-scotch.patch
+    - 0004-fix-language-requirement.patch
+    - 0005-use-external-dummysizes.patch
+    - 0006-fix-ptesmumps.h.patch
 
 build:
   skip: true  # [win]
   number: 0
 
 outputs:
-  - name: scotch
+  - name: libscotch
     build:
-      script: ${RECIPE_DIR}/build.sh
+      script: ${RECIPE_DIR}/build-scotch.sh
       run_exports:
         - {{ pin_subpackage('scotch', max_pin='x.x.x') }}
+      ignore_run_exports:
+        - {{ mpi }}
     requirements:
       build:
         - {{ compiler('c') }}
+        - {{ compiler('fortran') }}
+        - cmake
         - make
-        # preserve mpi variant for builds
-        - mpi * {{ mpi }}
-      host:
+        - {{ mpi }}  # [build_platform != target_platform]
         - bison <3.8
         - flex
+      host:
         - zlib
         - bzip2
         - xz
+        - {{ mpi }}
       run:
         - zlib
 
     test:
       requires:
         - {{ compiler('c') }}
-      source_files:
-        - src/check
-        - src/libscotch/common.h
-        - src/libscotch/module.h
-        - src/libscotch/fibo.h
-      files:
-        - Makefile.inc
       commands:
         {% for lib in [
           'scotch',
           'scotcherr',
           'scotcherrexit',
-          'scotchmetis',
           'esmumps',
         ]
         %}
         - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"
-        - test -f "${PREFIX}/lib/lib{{ lib }}-{{ major }}.{{ minor }}${SHLIB_EXT}"
         {% endfor %}
         - test -f "${PREFIX}/include/scotch.h"
         - test -f "${PREFIX}/include/scotchf.h"
         - test -f "${PREFIX}/include/esmumps.h"
-        - test -f "${PREFIX}/include/scotch/metis.h"
         - test ! -f "${PREFIX}/include/metis.h"
-  - name: ptscotch
+        - test -f "${PREFIX}/include/scotch/metis.h"
+        - test ! -f "${PREFIX}/bin/gord"
+
+  - name: libptscotch
     build:
-      script: ${RECIPE_DIR}/build.sh
+      script:
+        - cmake --install ./build --component=libptscotch
       run_exports:
         - {{ pin_subpackage('ptscotch', max_pin='x.x.x') }}
     requirements:
       build:
-        - {{ compiler('c') }}
-        - make
+        - cmake
         - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
       host:
-        - flex
         - {{ mpi }}
-        - scotch
-        - zlib
       run:
-        - {{ mpi }}
-        - {{ pin_subpackage('scotch', max_pin='x.x.x') }}
-        - zlib
+        - {{ pin_subpackage("scotch", exact=True) }}
     test:
       requires:
+        - cmake
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-      source_files:
-        - src/check
-        - src/libscotch/common.h
-        - src/libscotch/module.h
-      files:
-        - Makefile.inc
       commands:
         {% for lib in [
           'ptscotch',
           'ptscotcherr',
           'ptscotcherrexit',
-          'ptscotchparmetis',
-          'ptesmumps',
+          'ptesmumps'
         ]
         %}
         - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"
-        - test -f "${PREFIX}/lib/lib{{ lib }}-{{ major }}.{{ minor }}${SHLIB_EXT}"
         {% endfor %}
         - test -f "${PREFIX}/include/ptscotch.h"
         - test -f "${PREFIX}/include/ptscotchf.h"
-        - test -f "${PREFIX}/include/esmumps.h"
+        - test -f "${PREFIX}/include/ptesmumps.h"
         - test -f "${PREFIX}/include/scotch/parmetis.h"
         - test ! -f "${PREFIX}/include/parmetis.h"
+        - test ! -f "${PREFIX}/bin/dgord"
     about:
       summary: 'PT-SCOTCH: (Parallel) Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package'
 
+  - name: scotch
+    build:
+      script: cmake --install ./build --component=scotch
+      run_exports:
+        - {{ pin_subpackage('scotch', max_pin='x.x.x') }}
+      ignore_run_exports:
+        - {{ mpi }}
+    requirements:
+      build:
+        - cmake
+      host:
+        # This is needed to get the correct package hash
+        - {{ mpi }}
+      run:
+        - {{ pin_subpackage('libscotch', exact=True) }}
+    test:
+      commands:
+        - test -f "${PREFIX}/bin/gord"
+        - test ! -f "${PREFIX}/bin/dgord"
 
+  - name: ptscotch
+    build:
+      script: cmake --install ./build --component=ptscotch
+      run_exports:
+        - {{ pin_subpackage('ptscotch', max_pin='x.x.x') }}
+    requirements:
+      build:
+        - cmake
+      host:
+        # This is needed to get the correct package hash
+        - {{ mpi }}
+      run:
+        - {{ pin_subpackage('libptscotch', exact=True) }}
+        - {{ pin_subpackage('scotch', exact=True) }}
+    test:
+      commands:
+        - test -f "${PREFIX}/bin/gord"
+        - test -f "${PREFIX}/bin/dgord"
+    about:
+      summary: 'PT-SCOTCH: (Parallel) Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package'
 
 about:
   home: https://www.labri.fr/perso/pelegrin/scotch/
