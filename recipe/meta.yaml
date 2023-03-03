@@ -19,6 +19,7 @@ source:
     - 0005-use-external-dummysizes.patch
     - 0006-fix-ptesmumps.h.patch
     - 0007-fix-empty-union.patch
+    - 0008-win-fix-ssize_t.patch
 
 build:
   number: 1
