@@ -1,11 +1,14 @@
+About scotch-pkgs-feedstock
+===========================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/scotch-feedstock/blob/main/LICENSE.txt)
+
 About scotch-pkgs
-=================
+-----------------
 
 Home: https://www.labri.fr/perso/pelegrin/scotch/
 
 Package license: CECILL-C
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/scotch-feedstock/blob/main/LICENSE.txt)
 
 Summary: SCOTCH: Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package
 
@@ -18,6 +21,22 @@ graph partitioning, static mapping and clustering, sequential
 mesh and hypergraph partitioning, and sequential and parallel
 sparse matrix block ordering.
 
+About libptscotch
+-----------------
+
+
+
+Package license: 
+
+Summary: PT-SCOTCH: (Parallel) Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package
+About ptscotch
+--------------
+
+
+
+Package license: 
+
+Summary: PT-SCOTCH: (Parallel) Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package
 
 Current build status
 ====================
@@ -109,8 +128,8 @@ Current build status
             </tr><tr>
               <td>win_64</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=master&jobName=win&configuration=win%20win_64_" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=win&configuration=win%20win_64_" alt="variant">
                 </a>
               </td>
             </tr>
