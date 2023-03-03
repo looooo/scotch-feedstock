@@ -18,6 +18,7 @@ source:
     - 0004-fix-language-requirement.patch
     - 0005-use-external-dummysizes.patch
     - 0006-fix-ptesmumps.h.patch
+    - 0007-fix-empty-union.patch
 
 build:
   number: 1
