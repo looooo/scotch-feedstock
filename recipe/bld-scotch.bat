@@ -8,6 +8,8 @@ cmake ^
   -G "Ninja" ^
   -D CMAKE_BUILD_TYPE=Release ^
   -D CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
+  -D CMAKE_USE_WIN32_THREADS_INIT=1 ^
+  -D CMAKE_USE_PTHREADS_INIT=0 ^
   -B build ^
   %SRC_DIR%
 if errorlevel 1 exit 1
