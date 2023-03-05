@@ -28,3 +28,16 @@ index 648b6f0..9188eb0 100644
  /*
  **  The static definitions.
  */
+diff --git a/src/libscotch/context.c b/src/libscotch/context.c
+index 6becac0..aa78fae 100644
+--- a/src/libscotch/context.c
++++ b/src/libscotch/context.c
+@@ -70,7 +70,7 @@ static struct ContextValuesData_ {
+ #else /* ((defined SCOTCH_DETERMINISTIC) || (defined COMMON_RANDOM_FIXED_SEED)) */
+                               0
+ #endif /* ((defined SCOTCH_DETERMINISTIC) || (defined COMMON_RANDOM_FIXED_SEED)) */
+-  }, { } };
++  } };
+ 
+ /***********************************/
+ /*                                 */
