@@ -22,6 +22,7 @@ source:
     - 0008-win-fix-ssize_t.patch
     - 0009-win-fix-context.c.patch  # [win]
     - 0010-win-fix-flex.patch
+    - 0011-win-do-not-link-m.patch
 
 build:
   number: 1
