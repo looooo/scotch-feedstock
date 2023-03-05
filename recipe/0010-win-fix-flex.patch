@@ -8,7 +8,7 @@ index e3b0cb9..77dc24c 100644
  
 +if(WIN32)
 +  set(FLEX_FLAG "--wincompat")
-+else
++else()
 +  set(FLEX_FLAG "")
 +endif()
 +
