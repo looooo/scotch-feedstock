@@ -21,7 +21,7 @@ source:
     - 0007-fix-empty-union.patch
     - 0008-win-fix-ssize_t.patch
     - 0009-win-fix-context.c.patch  # [win]
-    - 0010-fix-win-flex.patch
+    - 0010-win-fix-flex.patch
 
 build:
   number: 1
