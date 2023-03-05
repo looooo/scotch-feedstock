@@ -52,10 +52,10 @@ outputs:
         - bzip2
         - xz
         - {{ mpi }}
-        - pthreads-win32  # [win]
+        # - pthreads-win32  # [win]
       run:
         - zlib
-        - pthreads-win32  # [win]
+        # - pthreads-win32  # [win]
 
     test:
       requires:
