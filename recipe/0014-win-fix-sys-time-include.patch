@@ -1,0 +1,28 @@
+diff --git a/src/scotch/dgmap.c b/src/scotch/dgmap.c
+index 572d936..21a20e8 100644
+--- a/src/scotch/dgmap.c
++++ b/src/scotch/dgmap.c
+@@ -56,7 +56,9 @@
+ 
+ #define SCOTCH_PTSCOTCH
+ 
++#if ((defined COMMON_TIMING_OLD) || (defined HAVE_SYS_TIME_H))
+ #include <sys/time.h>
++#endif /* ((defined COMMON_TIMING_OLD) || (defined HAVE_SYS_TIME_H)) */
+ 
+ #include "module.h"
+ #include "common.h"
+diff --git a/src/scotch/dgord.c b/src/scotch/dgord.c
+index 5a8b464..f1232b7 100644
+--- a/src/scotch/dgord.c
++++ b/src/scotch/dgord.c
+@@ -57,7 +57,9 @@
+ 
+ #define SCOTCH_PTSCOTCH
+ 
++#if ((defined COMMON_TIMING_OLD) || (defined HAVE_SYS_TIME_H))
+ #include <sys/time.h>
++#endif /* ((defined COMMON_TIMING_OLD) || (defined HAVE_SYS_TIME_H)) */
+ 
+ #include "module.h"
+ #include "common.h"
