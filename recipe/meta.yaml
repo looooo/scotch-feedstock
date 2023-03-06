@@ -25,9 +25,8 @@ source:
     - 0011-win-do-not-link-m.patch
     - 0012-win-fix-threads.patch
     - 0013-win-fix-graph-match-scan.patch
-    - 0014-win-fix-sys-time-include.patch
-    - 0015-win-fix-unistd-include.patch
-    - 0016-win-disable-fortran-test.patch
+    - 0014-win-disable-fortran-test.patch
+    - 0015-win-fix-unistd-time-include.patch
 
 build:
   number: 1
