@@ -2,7 +2,7 @@ diff --git a/src/libscotch/CMakeLists.txt b/src/libscotch/CMakeLists.txt
 index e3b0cb9..480306f 100644
 --- a/src/libscotch/CMakeLists.txt
 +++ b/src/libscotch/CMakeLists.txt
-@@ -508,7 +514,9 @@ add_library(scotch
+@@ -508,7 +514,10 @@ add_library(scotch
  set_target_properties(scotch PROPERTIES VERSION
    ${SCOTCH_VERSION}.${SCOTCH_RELEASE}.${SCOTCH_PATCHLEVEL})
  add_dependencies(scotch parser_yy_c parser_ll_c)
@@ -10,6 +10,7 @@ index e3b0cb9..480306f 100644
 +if(NOT WIN32)
 +  target_link_libraries(scotch PUBLIC m)
 +endif()
++target_link_libraries(scotch PUBLIC scotcherr)
  target_include_directories(scotch PUBLIC
          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
          $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
