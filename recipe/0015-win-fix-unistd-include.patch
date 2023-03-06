@@ -27,6 +27,20 @@ index f03f496..a6ddf15 100644
  
  #include "../libscotch/module.h"
  #include "../libscotch/common.h"
+@@ -141,8 +143,11 @@ char *              argv[])
+         SCOTCH_errorPrint ("Could not save random state");
+         break;
+     }
+-
++#ifndef _WIN32
+     sleep (2);                                    /* Next run will not get the same time() value */
++#else
++    Sleep (2000);
++#endif
+   }
+   else {                                          /* Second pass */
+     char *              charptr;
+
 diff --git a/src/check/test_fibo.c b/src/check/test_fibo.c
 index b301c2d..f6459b8 100644
 --- a/src/check/test_fibo.c
