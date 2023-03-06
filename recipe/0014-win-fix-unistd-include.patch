@@ -1,0 +1,127 @@
+diff --git a/src/check/test_common_file_compress.c b/src/check/test_common_file_compress.c
+diff --git a/src/check/test_common_file_compress.c b/src/check/test_common_file_compress.c
+index 1e67f37..0e9f411 100644
+--- a/src/check/test_common_file_compress.c
++++ b/src/check/test_common_file_compress.c
+@@ -57,7 +57,9 @@
+ #include <stdio.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
++#if ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H))
+ #include <unistd.h>
++#endif /* ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H)) */
+ 
+ #include "../libscotch/module.h"
+ #include "../libscotch/common.h"
+diff --git a/src/check/test_common_random.c b/src/check/test_common_random.c
+index f03f496..a6ddf15 100644
+--- a/src/check/test_common_random.c
++++ b/src/check/test_common_random.c
+@@ -59,7 +59,9 @@
+ #include <stdio.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
++#if ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H))
+ #include <unistd.h>
++#endif /* ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H)) */
+ 
+ #include "../libscotch/module.h"
+ #include "../libscotch/common.h"
+diff --git a/src/check/test_fibo.c b/src/check/test_fibo.c
+index b301c2d..f6459b8 100644
+--- a/src/check/test_fibo.c
++++ b/src/check/test_fibo.c
+@@ -59,7 +59,9 @@
+ #include <stdio.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
++#if ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H))
+ #include <unistd.h>
++#endif /* ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H)) */
+ 
+ #include "../libscotch/module.h"
+ #include "../libscotch/common.h"
+diff --git a/src/check/test_scotch_dgraph_band.c b/src/check/test_scotch_dgraph_band.c
+index 639188e..670ea7b 100644
+--- a/src/check/test_scotch_dgraph_band.c
++++ b/src/check/test_scotch_dgraph_band.c
+@@ -58,7 +58,9 @@
+ #include <sys/time.h>
+ #include <sys/types.h>
+ #include <pthread.h>
++#if ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H))
+ #include <unistd.h>
++#endif /* ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H)) */
+ 
+ #include "ptscotch.h"
+ 
+diff --git a/src/check/test_scotch_dgraph_check.c b/src/check/test_scotch_dgraph_check.c
+index dcc7acb..9a14348 100644
+--- a/src/check/test_scotch_dgraph_check.c
++++ b/src/check/test_scotch_dgraph_check.c
+@@ -58,7 +58,9 @@
+ #include <sys/time.h>
+ #include <sys/types.h>
+ #include <pthread.h>
++#if ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H))
+ #include <unistd.h>
++#endif /* ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H)) */
+ 
+ #include "ptscotch.h"
+ 
+diff --git a/src/check/test_scotch_dgraph_coarsen.c b/src/check/test_scotch_dgraph_coarsen.c
+index 85c816e..cc6a68f 100644
+--- a/src/check/test_scotch_dgraph_coarsen.c
++++ b/src/check/test_scotch_dgraph_coarsen.c
+@@ -58,7 +58,9 @@
+ #include <sys/time.h>
+ #include <sys/types.h>
+ #include <pthread.h>
++#if ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H))
+ #include <unistd.h>
++#endif /* ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H)) */
+ 
+ #include "ptscotch.h"
+ 
+diff --git a/src/check/test_scotch_dgraph_grow.c b/src/check/test_scotch_dgraph_grow.c
+index 50d0a9c..aff78b9 100644
+--- a/src/check/test_scotch_dgraph_grow.c
++++ b/src/check/test_scotch_dgraph_grow.c
+@@ -61,7 +61,9 @@
+ #include <sys/time.h>
+ #include <sys/types.h>
+ #include <pthread.h>
++#if ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H))
+ #include <unistd.h>
++#endif /* ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H)) */
+ 
+ #include "scotch.h"
+ #include "ptscotch.h"
+diff --git a/src/check/test_scotch_dgraph_induce.c b/src/check/test_scotch_dgraph_induce.c
+index fc1757a..308fe69 100644
+--- a/src/check/test_scotch_dgraph_induce.c
++++ b/src/check/test_scotch_dgraph_induce.c
+@@ -57,7 +57,9 @@
+ #endif /* (((defined __STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) || (defined HAVE_STDINT_H)) */
+ #include <stdlib.h>
+ #include <string.h>
++#if ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H))
+ #include <unistd.h>
++#endif /* ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H)) */
+ 
+ #include "scotch.h"
+ #include "ptscotch.h"
+diff --git a/src/check/test_scotch_dgraph_redist.c b/src/check/test_scotch_dgraph_redist.c
+index 7758f91..821cffb 100644
+--- a/src/check/test_scotch_dgraph_redist.c
++++ b/src/check/test_scotch_dgraph_redist.c
+@@ -56,7 +56,9 @@
+ #include <sys/time.h>
+ #include <sys/types.h>
+ #include <pthread.h>
++#if ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H))
+ #include <unistd.h>
++#endif /* ((! defined COMMON_OS_WINDOWS) && (! defined HAVE_NOT_UNISTD_H)) */
+ 
+ #include "ptscotch.h"
+ 
