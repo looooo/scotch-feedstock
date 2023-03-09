@@ -213,7 +213,7 @@ index f2ca31f..1da23f2 100644
                                  (byte *) &hdgraphorderstgraphdummy,
                                  (byte *) &hdgraphorderstgraphdummy.s.edgeglbnbr,
 diff --git a/src/libscotch/bgraph_bipart_st.c b/src/libscotch/bgraph_bipart_st.c
-index b5c2b98..2c1d8fc 100644
+index b5c2b98..0340f4b 100644
 --- a/src/libscotch/bgraph_bipart_st.c
 +++ b/src/libscotch/bgraph_bipart_st.c
 @@ -63,6 +63,7 @@
@@ -224,72 +224,15 @@ index b5c2b98..2c1d8fc 100644
  #include "module.h"
  #include "common.h"
  #include "fibo.h"
-@@ -87,39 +88,39 @@
- **  The static and global variables.
- */
- 
--static Bgraph               bgraphdummy;      /*+ Dummy active graph for offset computations +*/
-+static SCOTCH_EXPORT Bgraph               bgraphdummy;      /*+ Dummy active graph for offset computations +*/
- 
--static union {
-+static SCOTCH_EXPORT union {
-   BgraphBipartBdParam       param;
-   StratNodeMethodData       padding;
- } bgraphbipartstdefaultbd = { { 3, &stratdummy } };
- 
--static union {
-+static SCOTCH_EXPORT union {
-   BgraphBipartDfParam       param;
-   StratNodeMethodData       padding;
- } bgraphbipartstdefaultdf = { { 40, BGRAPHBIPARTDFTYPEBAL } };
- 
--static union {                                /* Default parameters for bipartitioning methods */
-+static SCOTCH_EXPORT union {                                /* Default parameters for bipartitioning methods */
-   BgraphBipartFmParam       param;            /* Parameter zone                                */
-   StratNodeMethodData       padding;          /* To avoid reading out of structure             */
- } bgraphbipartstdefaultfm = { { 80, ~0, 0.01L, BGRAPHBIPARTFMTYPEBOUNDARY } };
- 
--static union {
-+static SCOTCH_EXPORT union {
-   BgraphBipartGgParam       param;
-   StratNodeMethodData       padding;
- } bgraphbipartstdefaultgg = { { 5 } };
- 
--static union {
-+static SCOTCH_EXPORT union {
-   BgraphBipartGpParam       param;
-   StratNodeMethodData       padding;
- } bgraphbipartstdefaultgp = { { 5 } };
- 
--static union {
-+static SCOTCH_EXPORT union {
-   BgraphBipartMlParam       param;
-   StratNodeMethodData       padding;
- } bgraphbipartstdefaultml = { { 100, 0.8L, &stratdummy, &stratdummy } };
- 
--static StratMethodTab       bgraphbipartstmethtab[] = { /* Bipartitioning methods array */
-+static SCOTCH_EXPORT StratMethodTab       bgraphbipartstmethtab[] = { /* Bipartitioning methods array */
-                               { BGRAPHBIPARTSTMETHBD, "b",  bgraphBipartBd, &bgraphbipartstdefaultbd },
-                               { BGRAPHBIPARTSTMETHDF, "d",  bgraphBipartDf, &bgraphbipartstdefaultdf },
-                               { BGRAPHBIPARTSTMETHEX, "x",  bgraphBipartEx, NULL },
-@@ -130,7 +131,7 @@ static StratMethodTab       bgraphbipartstmethtab[] = { /* Bipartitioning method
-                               { BGRAPHBIPARTSTMETHZR, "z",  bgraphBipartZr, NULL },
-                               { -1,                   NULL, NULL,           NULL } };
- 
--static StratParamTab        bgraphbipartstparatab[] = { /* Method parameter list */
-+static SCOTCH_EXPORT StratParamTab        bgraphbipartstparatab[] = { /* Method parameter list */
-                               { BGRAPHBIPARTSTMETHBD,  STRATPARAMSTRAT,  "bnd",
-                                 (byte *) &bgraphbipartstdefaultbd.param,
-                                 (byte *) &bgraphbipartstdefaultbd.param.stratbnd,
-@@ -194,7 +195,7 @@ static StratParamTab        bgraphbipartstparatab[] = { /* Method parameter list
-                               { BGRAPHBIPARTSTMETHNBR, STRATPARAMINT,    NULL,
+@@ -230,7 +231,7 @@ static StratParamTab        bgraphbipartstcondtab[] = { /* Active graph conditio
+                               { STRATNODENBR,        STRATPARAMINT,    NULL,
                                  NULL, NULL, NULL } };
  
--static StratParamTab        bgraphbipartstcondtab[] = { /* Active graph condition parameter table */
-+static SCOTCH_EXPORT StratParamTab        bgraphbipartstcondtab[] = { /* Active graph condition parameter table */
-                               { STRATNODECOND,       STRATPARAMDOUBLE, "bal",
-                                 (byte *) &bgraphdummy,
-                                 (byte *) &bgraphdummy.bbalval,
+-StratTab                    bgraphbipartststratab = { /* Strategy tables for graph bipartitioning methods */
++SCOTCH_EXPORT StratTab                    bgraphbipartststratab = { /* Strategy tables for graph bipartitioning methods */
+                               bgraphbipartstmethtab,
+                               bgraphbipartstparatab,
+                               bgraphbipartstcondtab };
 diff --git a/src/libscotch/parser.c b/src/libscotch/parser.c
 index a1dc4d8..470edf2 100644
 --- a/src/libscotch/parser.c
