@@ -1,230 +1,79 @@
-diff --git a/src/libscotch/vgraph_separate_st.c b/src/libscotch/vgraph_separate_st.c
-index a218fb2..e2eb923 100644
---- a/src/libscotch/vgraph_separate_st.c
-+++ b/src/libscotch/vgraph_separate_st.c
-@@ -60,6 +60,7 @@
- **  The defines and includes.
+diff --git a/src/libscotch/parser.c b/src/libscotch/parser.c
+index a1dc4d8..a537256 100644
+--- a/src/libscotch/parser.c
++++ b/src/libscotch/parser.c
+@@ -79,7 +79,7 @@
  */
+ 
+ static StratTab             stratdummytab = { NULL, NULL, NULL }; /* Dummy strategy table for the dummy empty object       */
+-Strat                       stratdummy = { &stratdummytab, STRATNODEEMPTY }; /* Dummy empty object for offset computations */
++SCOTCH_EXPORT Strat                       stratdummy = { &stratdummytab, STRATNODEEMPTY }; /* Dummy empty object for offset computations */
+ 
+ /**************************/
+ /*                        */
+diff --git a/src/libscotch/parser.h b/src/libscotch/parser.h
+index fa07ef3..9e21527 100644
+--- a/src/libscotch/parser.h
++++ b/src/libscotch/parser.h
+@@ -62,6 +62,8 @@
+ 
+ /*+ Strategy node types. +*/
  
 +#include <scotch_export.h>
- #include "module.h"
- #include "common.h"
- #include "gain.h"
-@@ -86,39 +87,39 @@
- **  The static and global variables.
++
+ typedef enum StratNodeType_ {
+   STRATNODECONCAT,                                /*+ Concatenation node       +*/
+   STRATNODECOND,                                  /*+ Condition node           +*/
+@@ -245,7 +247,7 @@ typedef struct ParserLocation_ {
+ **  The external declarations.
  */
  
--static Vgraph               vgraphdummy;          /* Dummy separator graph for offset computations */
-+static SCOTCH_EXPORT Vgraph               vgraphdummy;          /* Dummy separator graph for offset computations */
+-extern Strat                stratdummy;           /*+ Dummy empty strategy node +*/
++SCOTCH_EXPORT extern Strat                stratdummy;           /*+ Dummy empty strategy node +*/
  
--static union {
-+static SCOTCH_EXPORT union {
-   VgraphSeparateBdParam     param;
-   StratNodeMethodData       padding;
- } vgraphseparatedefaultbd = { { 3, &stratdummy, &stratdummy } };
- 
--static union {
-+static SCOTCH_EXPORT union {
-   VgraphSeparateEsParam     param;
-   StratNodeMethodData       padding;
- } vgraphseparatedefaultes = { { &stratdummy, VGRAPHSEPAESWIDTHTHIN } };
- 
--static union {
-+static SCOTCH_EXPORT union {
-   VgraphSeparateFmParam     param;
-   StratNodeMethodData       padding;
- } vgraphseparatedefaultfm = { { 200, 1000, 0.1L } };
- 
--static union {
-+static SCOTCH_EXPORT union {
-   VgraphSeparateGgParam     param;
-   StratNodeMethodData       padding;
- } vgraphseparatedefaultgg = { { 5 } };
- 
--static union {
-+static SCOTCH_EXPORT union {
-   VgraphSeparateGpParam     param;
-   StratNodeMethodData       padding;
- } vgraphseparatedefaultgp = { { 9 } };
- 
--static union {
-+static SCOTCH_EXPORT union {
-   VgraphSeparateMlParam     param;
-   StratNodeMethodData       padding;
- } vgraphseparatedefaultml = { { 100, 0.8L, GRAPHCOARHEM, &stratdummy, &stratdummy } };
- 
--static StratMethodTab       vgraphseparatestmethtab[] = { /* Graph separation methods array */
-+static SCOTCH_EXPORT StratMethodTab       vgraphseparatestmethtab[] = { /* Graph separation methods array */
-                               { VGRAPHSEPASTMETHBD, "b",  vgraphSeparateBd, &vgraphseparatedefaultbd },
-                               { VGRAPHSEPASTMETHES, "e",  vgraphSeparateEs, &vgraphseparatedefaultes },
-                               { VGRAPHSEPASTMETHFM, "f",  vgraphSeparateFm, &vgraphseparatedefaultfm },
-@@ -129,7 +130,7 @@ static StratMethodTab       vgraphseparatestmethtab[] = { /* Graph separation me
-                               { VGRAPHSEPASTMETHZR, "z",  vgraphSeparateZr, NULL },
-                               { -1,                 NULL, NULL,             NULL } };
- 
--static StratParamTab        vgraphseparatestparatab[] = { /* Graph separation method parameter list */
-+static SCOTCH_EXPORT StratParamTab        vgraphseparatestparatab[] = { /* Graph separation method parameter list */
-                               { VGRAPHSEPASTMETHBD,  STRATPARAMSTRAT,  "bnd",
-                                 (byte *) &vgraphseparatedefaultbd.param,
-                                 (byte *) &vgraphseparatedefaultbd.param.stratbnd,
-@@ -193,7 +194,7 @@ static StratParamTab        vgraphseparatestparatab[] = { /* Graph separation me
-                               { VGRAPHSEPASTMETHNBR, STRATPARAMINT,    NULL,
-                                 NULL, NULL, NULL } };
- 
--static StratParamTab        vgraphseparatestcondtab[] = { /* Graph condition parameter table */
-+static SCOTCH_EXPORT StratParamTab        vgraphseparatestcondtab[] = { /* Graph condition parameter table */
-                               { STRATNODECOND,       STRATPARAMINT,    "edge",
-                                 (byte *) &vgraphdummy,
-                                 (byte *) &vgraphdummy.s.edgenbr,
-diff --git a/src/libscotch/kgraph_map_st.c b/src/libscotch/kgraph_map_st.c
-index 6abb229..a65bb74 100644
---- a/src/libscotch/kgraph_map_st.c
-+++ b/src/libscotch/kgraph_map_st.c
-@@ -63,6 +63,7 @@
- **  The defines and includes.
- */
- 
-+#include <scotch_export.h>
- #include "module.h"
- #include "common.h"
- #include "parser.h"
-@@ -88,43 +89,43 @@
- **  The static and global variables.
- */
- 
--static Kgraph               kgraphdummy;          /*+ Dummy active graph for offset computations +*/
-+static SCOTCH_EXPORT Kgraph               kgraphdummy;          /*+ Dummy active graph for offset computations +*/
- 
--static union {
-+static SCOTCH_EXPORT union {
-   KgraphMapBdParam          param;
-   StratNodeMethodData       padding;
- } kgraphmapstdefaultbd = { { 3, &stratdummy, &stratdummy } };
- 
--static union {
-+static SCOTCH_EXPORT union {
-   StratNodeMethodData       padding;
- } kgraphmapstdefaultcp;
- 
--static union {
-+static SCOTCH_EXPORT union {
-   KgraphMapDfParam          param;
-   StratNodeMethodData       padding;
- } kgraphmapstdefaultdf = { { 40, 1.0F, 0.0F } };
- 
--static union {
-+static SCOTCH_EXPORT union {
-   KgraphMapExParam          param;
-   StratNodeMethodData       padding;
- } kgraphmapstdefaultex = { { 0.05 } };
- 
--static union {
-+static SCOTCH_EXPORT union {
-   KgraphMapFmParam          param;
-   StratNodeMethodData       padding;
- } kgraphmapstdefaultfm = { { 200, ~0, 0.05 } };
- 
--static union {
-+static SCOTCH_EXPORT union {
-   KgraphMapMlParam          param;
-   StratNodeMethodData       padding;
- } kgraphmapstdefaultml = { { 100, 0.8, &stratdummy, &stratdummy, 0 } };
- 
--static union {
-+static SCOTCH_EXPORT union {
-   KgraphMapRbParam          param;
-   StratNodeMethodData       padding;
- } kgraphmapstdefaultrb = { { 1, 1, KGRAPHMAPRBPOLINGSIZE, &stratdummy, 0.05 } };
- 
--static StratMethodTab       kgraphmapstmethtab[] = { /* Mapping methods array */
-+static SCOTCH_EXPORT StratMethodTab       kgraphmapstmethtab[] = { /* Mapping methods array */
-                               { KGRAPHMAPSTMETHBD, "b",  kgraphMapBd, &kgraphmapstdefaultbd },
-                               { KGRAPHMAPSTMETHCP, "c",  kgraphMapCp, &kgraphmapstdefaultcp },
-                               { KGRAPHMAPSTMETHDF, "d",  kgraphMapDf, &kgraphmapstdefaultdf },
-@@ -134,7 +135,7 @@ static StratMethodTab       kgraphmapstmethtab[] = { /* Mapping methods array */
-                               { KGRAPHMAPSTMETHRB, "r",  kgraphMapRb, &kgraphmapstdefaultrb },
-                               { -1,                NULL, NULL,        NULL } };
- 
--static StratParamTab        kgraphmapstparatab[] = { /* Method parameter list */
-+static SCOTCH_EXPORT StratParamTab        kgraphmapstparatab[] = { /* Method parameter list */
-                               { KGRAPHMAPSTMETHBD,  STRATPARAMINT,    "width",
-                                 (byte *) &kgraphmapstdefaultbd.param,
-                                 (byte *) &kgraphmapstdefaultbd.param.distmax,
-@@ -218,7 +219,7 @@ static StratParamTab        kgraphmapstparatab[] = { /* Method parameter list */
-                               { KGRAPHMAPSTMETHNBR, STRATPARAMINT,    NULL,
-                                 NULL, NULL, NULL } };
- 
--static StratParamTab        kgraphmapstcondtab[] = { /* Graph condition parameter table */
-+static SCOTCH_EXPORT StratParamTab        kgraphmapstcondtab[] = { /* Graph condition parameter table */
-                               { STRATNODECOND,       STRATPARAMINT,    "load",
-                                 (byte *) &kgraphdummy,
-                                 (byte *) &kgraphdummy.s.velosum,
+ /*
+ **  The function prototypes.
 
-diff --git a/src/libscotch/hdgraph_order_st.c b/src/libscotch/hdgraph_order_st.c
-index f2ca31f..1da23f2 100644
---- a/src/libscotch/hdgraph_order_st.c
-+++ b/src/libscotch/hdgraph_order_st.c
-@@ -52,6 +52,7 @@
- **  The defines and includes.
- */
- 
-+#include <scotch_export.h>
- #include "module.h"
- #include "common.h"
- #include "parser.h"
-@@ -73,25 +74,25 @@
- **  The static and global variables.
- */
- 
--static Hdgraph              hdgraphorderstgraphdummy; /* Dummy graph for offset computations */
-+static SCOTCH_EXPORT Hdgraph              hdgraphorderstgraphdummy; /* Dummy graph for offset computations */
- 
--static union {                                    /* Default parameters for nested dissection method */
-+static SCOTCH_EXPORT union {                                    /* Default parameters for nested dissection method */
-   HdgraphOrderNdParam       param;
-   StratNodeMethodData       padding;
- } hdgraphorderstdefaultnd = { { &stratdummy, &stratdummy, &stratdummy } };
- 
--static union {                                    /* Default parameters for sequential method */
-+static SCOTCH_EXPORT union {                                    /* Default parameters for sequential method */
-   HdgraphOrderSqParam       param;
-   StratNodeMethodData       padding;
- } hdgraphorderstdefaultsq = { { &stratdummy } };
- 
--static StratMethodTab       hdgraphorderstmethtab[] = { /* Graph ordering methods array */
-+static SCOTCH_EXPORT StratMethodTab       hdgraphorderstmethtab[] = { /* Graph ordering methods array */
-                               { HDGRAPHORDERSTMETHND, "n",  hdgraphOrderNd, &hdgraphorderstdefaultnd },
-                               { HDGRAPHORDERSTMETHSI, "s",  hdgraphOrderSi, NULL },
-                               { HDGRAPHORDERSTMETHSQ, "q",  hdgraphOrderSq, &hdgraphorderstdefaultsq },
-                               { -1,                   NULL, NULL,           NULL } };
- 
--static StratParamTab        hdgraphorderstparatab[] = { /* The method parameter list */
-+static SCOTCH_EXPORT StratParamTab        hdgraphorderstparatab[] = { /* The method parameter list */
-                               { HDGRAPHORDERSTMETHND,  STRATPARAMSTRAT,  "sep",
-                                 (byte *) &hdgraphorderstdefaultnd.param,
-                                 (byte *) &hdgraphorderstdefaultnd.param.sepstrat,
-@@ -115,7 +116,7 @@ static StratParamTab        hdgraphorderstparatab[] = { /* The method parameter
-                               { HDGRAPHORDERSTMETHNBR, STRATPARAMINT,    NULL,
+diff --git a/src/libscotch/hgraph_order_st.c b/src/libscotch/hgraph_order_st.c
+index e9fabd4..2e620a2 100644
+--- a/src/libscotch/hgraph_order_st.c
++++ b/src/libscotch/hgraph_order_st.c
+@@ -239,7 +239,7 @@ static StratParamTab        hgraphorderstcondtab[] = { /* Graph condition parame
+                               { STRATNODENBR,         STRATPARAMINT,    NULL,
                                  NULL, NULL, NULL } };
  
--static StratParamTab        hdgraphorderstcondtab[] = { /* Graph condition parameter table */
-+static SCOTCH_EXPORT StratParamTab        hdgraphorderstcondtab[] = { /* Graph condition parameter table */
-                               { STRATNODECOND,         STRATPARAMINT,    "edge",
-                                 (byte *) &hdgraphorderstgraphdummy,
-                                 (byte *) &hdgraphorderstgraphdummy.s.edgeglbnbr,
+-StratTab                    hgraphorderststratab = { /* Strategy tables for graph ordering methods */
++SCOTCH_EXPORT StratTab                    hgraphorderststratab = { /* Strategy tables for graph ordering methods */
+                               hgraphorderstmethtab,
+                               hgraphorderstparatab,
+                               hgraphorderstcondtab };
+diff --git a/src/libscotch/hgraph_order_st.h b/src/libscotch/hgraph_order_st.h
+index 66392d5..6ed6644 100644
+--- a/src/libscotch/hgraph_order_st.h
++++ b/src/libscotch/hgraph_order_st.h
+@@ -56,6 +56,8 @@
+ 
+ /*+ Method types. +*/
+ 
++#include <scotch_export.h>
++
+ typedef enum HgraphOrderStMethodType_ {
+   HGRAPHORDERSTMETHBL = 0,                        /*+ Block splitting post-processing       +*/
+   HGRAPHORDERSTMETHCC,                            /*+ Splitting of connected components     +*/
+@@ -73,7 +75,7 @@ typedef enum HgraphOrderStMethodType_ {
+ **  The external declarations.
+ */
+ 
+-extern StratTab             hgraphorderststratab;
++SCOTCH_EXPORT extern StratTab             hgraphorderststratab;
+ 
+ /*
+ **  The function prototypes.
 diff --git a/src/libscotch/bgraph_bipart_st.c b/src/libscotch/bgraph_bipart_st.c
-index b5c2b98..0340f4b 100644
+index b5c2b98..f461581 100644
 --- a/src/libscotch/bgraph_bipart_st.c
 +++ b/src/libscotch/bgraph_bipart_st.c
-@@ -63,6 +63,7 @@
- **  The defines and includes.
- */
- 
-+#include <scotch_export.h>
- #include "module.h"
- #include "common.h"
- #include "fibo.h"
-@@ -230,7 +231,7 @@ static StratParamTab        bgraphbipartstcondtab[] = { /* Active graph conditio
+@@ -230,7 +230,7 @@ static StratParamTab        bgraphbipartstcondtab[] = { /* Active graph conditio
                                { STRATNODENBR,        STRATPARAMINT,    NULL,
                                  NULL, NULL, NULL } };
  
@@ -233,45 +82,97 @@ index b5c2b98..0340f4b 100644
                                bgraphbipartstmethtab,
                                bgraphbipartstparatab,
                                bgraphbipartstcondtab };
-diff --git a/src/libscotch/parser.c b/src/libscotch/parser.c
-index a1dc4d8..470edf2 100644
---- a/src/libscotch/parser.c
-+++ b/src/libscotch/parser.c
-@@ -64,6 +64,7 @@
+diff --git a/src/libscotch/bgraph_bipart_st.h b/src/libscotch/bgraph_bipart_st.h
+index 71a7cbf..06332ec 100644
+--- a/src/libscotch/bgraph_bipart_st.h
++++ b/src/libscotch/bgraph_bipart_st.h
+@@ -57,6 +57,8 @@
  
- #define SCOTCH_PARSER
+ /** Method types. **/
  
 +#include <scotch_export.h>
- #include "module.h"
- #include "common.h"
- 
-@@ -78,7 +79,7 @@
- **  The static and global variables.
++
+ typedef enum BgraphBipartStMethodType_ {
+   BGRAPHBIPARTSTMETHBD = 0,                       /*+ Band                   +*/
+   BGRAPHBIPARTSTMETHDF,                           /*+ Diffusion              +*/
+@@ -73,7 +75,7 @@ typedef enum BgraphBipartStMethodType_ {
+ **  The external declarations.
  */
  
--static StratTab             stratdummytab = { NULL, NULL, NULL }; /* Dummy strategy table for the dummy empty object       */
-+static SCOTCH_EXPORT StratTab             stratdummytab = { NULL, NULL, NULL }; /* Dummy strategy table for the dummy empty object       */
- Strat                       stratdummy = { &stratdummytab, STRATNODEEMPTY }; /* Dummy empty object for offset computations */
+-extern StratTab             bgraphbipartststratab;
++SCOTCH_EXPORT extern StratTab             bgraphbipartststratab;
  
- /**************************/
-@@ -465,7 +466,7 @@ const void * restrict const       data)           /*+ Pointer to data structure
- ** - VOID  : in all cases;
+ /*
+ **  The function prototypes.
+
+diff --git a/src/libscotch/kgraph_map_st.c b/src/libscotch/kgraph_map_st.c
+index 6abb229..b1914ba 100644
+--- a/src/libscotch/kgraph_map_st.c
++++ b/src/libscotch/kgraph_map_st.c
+@@ -238,7 +238,7 @@ static StratParamTab        kgraphmapstcondtab[] = { /* Graph condition paramete
+                               { STRATNODENBR,        STRATPARAMINT,    NULL,
+                                 NULL, NULL, NULL } };
+ 
+-StratTab                    kgraphmapststratab = { /* Strategy tables for graph mapping methods */
++SCOTCH_EXPORT StratTab                    kgraphmapststratab = { /* Strategy tables for graph mapping methods */
+                               kgraphmapstmethtab,
+                               kgraphmapstparatab,
+                               kgraphmapstcondtab };
+diff --git a/src/libscotch/kgraph_map_st.h b/src/libscotch/kgraph_map_st.h
+index be98f82..bbba461 100644
+--- a/src/libscotch/kgraph_map_st.h
++++ b/src/libscotch/kgraph_map_st.h
+@@ -60,6 +60,8 @@
+ 
+ /*+ Method types. +*/
+ 
++#include <scotch_export.h>
++
+ typedef enum KgraphMapStMethodType_ {
+   KGRAPHMAPSTMETHBD = 0,                          /*+ Band (strategy)               +*/
+   KGRAPHMAPSTMETHCP,                              /*+ Old mapping copy              +*/
+@@ -75,7 +77,7 @@ typedef enum KgraphMapStMethodType_ {
+ **  The external declarations.
  */
  
--static
-+static SCOTCH_EXPORT
- int
- stratTestEvalCast (
- StratTest * const           test0,
-@@ -550,8 +551,8 @@ StratTest * const           test)
- ** - !0  : on error.
+-extern StratTab             kgraphmapststratab;
++SCOTCH_EXPORT extern StratTab             kgraphmapststratab;
+ 
+ /*
+ **  The function prototypes.
+
+diff --git a/src/libscotch/vgraph_separate_st.c b/src/libscotch/vgraph_separate_st.c
+index a218fb2..7230f68 100644
+--- a/src/libscotch/vgraph_separate_st.c
++++ b/src/libscotch/vgraph_separate_st.c
+@@ -213,7 +213,7 @@ static StratParamTab        vgraphseparatestcondtab[] = { /* Graph condition par
+                               { STRATNODENBR,        STRATPARAMINT,    NULL,
+                                 NULL, NULL, NULL } };
+ 
+-StratTab                    vgraphseparateststratab = { /* Strategy tables for vertex separation methods */
++SCOTCH_EXPORT StratTab                    vgraphseparateststratab = { /* Strategy tables for vertex separation methods */
+                               vgraphseparatestmethtab,
+                               vgraphseparatestparatab,
+                               vgraphseparatestcondtab };
+diff --git a/src/libscotch/vgraph_separate_st.h b/src/libscotch/vgraph_separate_st.h
+index 8a4d2c6..b95f82b 100644
+--- a/src/libscotch/vgraph_separate_st.h
++++ b/src/libscotch/vgraph_separate_st.h
+@@ -60,6 +60,8 @@
+ 
+ /*+ Method types. +*/
+ 
++#include <scotch_export.h>
++
+ typedef enum VgraphSeparateStMethodType_ {
+   VGRAPHSEPASTMETHBD = 0,                         /*+ Banding strategy         +*/
+   VGRAPHSEPASTMETHES,                             /*+ Edge separation strategy +*/
+@@ -76,7 +78,7 @@ typedef enum VgraphSeparateStMethodType_ {
+ **  The external declarations.
  */
  
--static char                 strattestsaveop[STRATTESTNBR] = "|&!=><+-*%##";
--static char *               strattestsavepa[2][2] = { { "(", ")" }, { "", "" } };
-+static SCOTCH_EXPORT char                 strattestsaveop[STRATTESTNBR] = "|&!=><+-*%##";
-+static SCOTCH_EXPORT char *               strattestsavepa[2][2] = { { "(", ")" }, { "", "" } };
+-extern StratTab             vgraphseparateststratab;
++SCOTCH_EXPORT extern StratTab             vgraphseparateststratab;
  
- int
- stratTestSave (
- 
+ /*
+ **  The function prototypes.
