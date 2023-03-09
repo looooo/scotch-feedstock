@@ -12,24 +12,28 @@ index a1dc4d8..a537256 100644
  /**************************/
  /*                        */
 diff --git a/src/libscotch/parser.h b/src/libscotch/parser.h
-index fa07ef3..9e21527 100644
+index fa07ef3..1183fc8 100644
 --- a/src/libscotch/parser.h
 +++ b/src/libscotch/parser.h
-@@ -62,6 +62,8 @@
+@@ -62,6 +62,10 @@
  
  /*+ Strategy node types. +*/
  
++#ifdef SCOTCH_PARSER
 +#include <scotch_export.h>
++#endif
 +
  typedef enum StratNodeType_ {
    STRATNODECONCAT,                                /*+ Concatenation node       +*/
    STRATNODECOND,                                  /*+ Condition node           +*/
-@@ -245,7 +247,7 @@ typedef struct ParserLocation_ {
+@@ -245,7 +249,9 @@ typedef struct ParserLocation_ {
  **  The external declarations.
  */
  
 -extern Strat                stratdummy;           /*+ Dummy empty strategy node +*/
++#ifdef SCOTCH_PARSER
 +SCOTCH_EXPORT extern Strat                stratdummy;           /*+ Dummy empty strategy node +*/
++#endif
  
  /*
  **  The function prototypes.
