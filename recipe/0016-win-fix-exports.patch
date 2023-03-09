@@ -1,16 +1,18 @@
 diff --git a/src/libscotch/dummysizes.c b/src/libscotch/dummysizes.c
-index fbd7b52..fdac5aa 100644
+index fbd7b52..c5238e7 100644
 --- a/src/libscotch/dummysizes.c
 +++ b/src/libscotch/dummysizes.c
-@@ -92,7 +92,7 @@
+@@ -92,7 +92,9 @@
  #endif /* SCOTCH_NAME_SUFFIX */
  #include "module.h"
  #include "common.h"
--#include "parser.h"
-+//#include "parser.h"
++#define DUMMYSIZES_C
+ #include "parser.h"
++#undef DUMMYSIZES_C
  #include "graph.h"
  #include "geom.h"
  #include "mesh.h"
+
 diff --git a/src/libscotch/parser.c b/src/libscotch/parser.c
 index a1dc4d8..a537256 100644
 --- a/src/libscotch/parser.c
@@ -25,28 +27,31 @@ index a1dc4d8..a537256 100644
  /**************************/
  /*                        */
 diff --git a/src/libscotch/parser.h b/src/libscotch/parser.h
-index fa07ef3..9e21527 100644
+index fa07ef3..e3060a0 100644
 --- a/src/libscotch/parser.h
 +++ b/src/libscotch/parser.h
-@@ -62,6 +62,8 @@
+@@ -62,6 +62,10 @@
  
  /*+ Strategy node types. +*/
  
++#ifndef DUMMYSIZES_C
 +#include <scotch_export.h>
++#endif
 +
  typedef enum StratNodeType_ {
    STRATNODECONCAT,                                /*+ Concatenation node       +*/
    STRATNODECOND,                                  /*+ Condition node           +*/
-@@ -245,7 +247,7 @@ typedef struct ParserLocation_ {
+@@ -245,7 +249,9 @@ typedef struct ParserLocation_ {
  **  The external declarations.
  */
  
 -extern Strat                stratdummy;           /*+ Dummy empty strategy node +*/
++#ifndef DUMMYSIZES_C
 +SCOTCH_EXPORT extern Strat                stratdummy;           /*+ Dummy empty strategy node +*/
++#endif
  
  /*
  **  The function prototypes.
-
 diff --git a/src/libscotch/hgraph_order_st.c b/src/libscotch/hgraph_order_st.c
 index e9fabd4..2e620a2 100644
 --- a/src/libscotch/hgraph_order_st.c
