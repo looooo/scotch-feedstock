@@ -2,7 +2,11 @@ diff --git a/src/libscotch/CMakeLists.txt b/src/libscotch/CMakeLists.txt
 index e3b0cb9..480306f 100644
 --- a/src/libscotch/CMakeLists.txt
 +++ b/src/libscotch/CMakeLists.txt
-@@ -508,7 +514,10 @@ add_library(scotch
+@@ -505,10 +511,14 @@ set(SCOTCH_C_SOURCES
+ 
+ add_library(scotch
+   ${SCOTCH_C_SOURCES})
++generate_export_header(scotch)
  set_target_properties(scotch PROPERTIES VERSION
    ${SCOTCH_VERSION}.${SCOTCH_RELEASE}.${SCOTCH_PATCHLEVEL})
  add_dependencies(scotch parser_yy_c parser_ll_c)
