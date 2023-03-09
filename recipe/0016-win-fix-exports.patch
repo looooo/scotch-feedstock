@@ -1,3 +1,45 @@
+diff --git a/src/libscotch/parser.c b/src/libscotch/parser.c
+index a1dc4d8..d646600 100644
+--- a/src/libscotch/parser.c
++++ b/src/libscotch/parser.c
+@@ -64,6 +64,7 @@
+ 
+ #define SCOTCH_PARSER
+ 
++#include <scotch_export.h>
+ #include "module.h"
+ #include "common.h"
+ 
+@@ -78,7 +79,7 @@
+ **  The static and global variables.
+ */
+ 
+-static StratTab             stratdummytab = { NULL, NULL, NULL }; /* Dummy strategy table for the dummy empty object       */
++static scotch_EXPORT StratTab             stratdummytab = { NULL, NULL, NULL }; /* Dummy strategy table for the dummy empty object       */
+ Strat                       stratdummy = { &stratdummytab, STRATNODEEMPTY }; /* Dummy empty object for offset computations */
+ 
+ /**************************/
+@@ -465,7 +466,7 @@ const void * restrict const       data)           /*+ Pointer to data structure
+ ** - VOID  : in all cases;
+ */
+ 
+-static
++static scotch_EXPORT
+ int
+ stratTestEvalCast (
+ StratTest * const           test0,
+@@ -550,8 +551,8 @@ StratTest * const           test)
+ ** - !0  : on error.
+ */
+ 
+-static char                 strattestsaveop[STRATTESTNBR] = "|&!=><+-*%##";
+-static char *               strattestsavepa[2][2] = { { "(", ")" }, { "", "" } };
++static scotch_EXPORT char                 strattestsaveop[STRATTESTNBR] = "|&!=><+-*%##";
++static scotch_EXPORT char *               strattestsavepa[2][2] = { { "(", ")" }, { "", "" } };
+ 
+ int
+ stratTestSave (
+
 diff --git a/src/libscotch/vgraph_separate_st.c b/src/libscotch/vgraph_separate_st.c
 index a218fb2..c17fb8c 100644
 --- a/src/libscotch/vgraph_separate_st.c
