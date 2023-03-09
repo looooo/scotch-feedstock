@@ -27,6 +27,7 @@ source:
     - 0013-win-fix-graph-match-scan.patch
     - 0014-win-disable-fortran-test.patch
     - 0015-win-fix-unistd-time-include.patch
+    - 0016-win-fix-exports.patch
 
 build:
   number: 1
