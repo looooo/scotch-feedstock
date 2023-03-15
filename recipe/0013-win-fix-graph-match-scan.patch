@@ -18,8 +18,8 @@ index ec13821..23d20af 100644
 +    if (_InterlockedExchange(&locktax[finevertnum], 1) != 0) /* If could not acquire local vertex (always succeeds for isolated) */
 +      continue;                                   /* Do not remember it as some other vertex has already acquired both           */
 +
-+    if (finevertbst != finevertnum) {             /* If we mated with another vertex                 */
-+      if (_InterlockedExchange(&locktax[finevertbst], 1) != 0) { /* If could not acquire mate vertex */
++    if (finevertbst != finevertnum) {             /* If we matched with another vertex                 */
++      if (_InterlockedExchange(&locktax[finevertbst], 1) != 0) { /* If we could not acquire vertex */
 +        _InterlockedExchange(&locktax[finevertnum], 0); /* Release lock on local vertex                 */
 +        finequeutab[finequeunew++] = finevertnum; /* Postpone processing to next pass               */
 +        continue;
