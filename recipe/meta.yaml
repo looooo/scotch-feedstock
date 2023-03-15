@@ -150,10 +150,10 @@ outputs:
         - {{ pin_subpackage('libscotch', exact=True) }}
     test:
       commands:
-        - test -f "${PREFIX}/bin/gord"                                   # [unix]
-        - if exist %PREFIX%\\Library\\bin\\gord (exit 0) else (exit 1)   # [win]
-        - test ! -f "${PREFIX}/bin/dgord"                                # [unix]
-        - if exist %PREFIX%\\Library\\bin\\dgord (exit 1) else (exit 0)  # [win]
+        - test -f "${PREFIX}/bin/gord"                                       # [unix]
+        - if exist %PREFIX%\\Library\\bin\\gord.exe (exit 0) else (exit 1)   # [win]
+        - test ! -f "${PREFIX}/bin/dgord"                                    # [unix]
+        - if exist %PREFIX%\\Library\\bin\\dgord.exe (exit 1) else (exit 0)  # [win]
 
   - name: ptscotch
     build:
@@ -171,10 +171,10 @@ outputs:
         - {{ pin_subpackage('scotch', exact=True) }}
     test:
       commands:
-        - test -f "${PREFIX}/bin/gord"                                   # [unix]
-        - if exist %PREFIX%\\Library\\bin\\gord (exit 0) else (exit 1)   # [win]
-        - test -f "${PREFIX}/bin/dgord"                                  # [unix]
-        - if exist %PREFIX%\\Library\\bin\\dgord (exit 0) else (exit 1)  # [win]
+        - test -f "${PREFIX}/bin/gord"                                       # [unix]
+        - if exist %PREFIX%\\Library\\bin\\gord.exe (exit 0) else (exit 1)   # [win]
+        - test -f "${PREFIX}/bin/dgord"                                      # [unix]
+        - if exist %PREFIX%\\Library\\bin\\dgord.exe (exit 0) else (exit 1)  # [win]
     about:
       summary: 'PT-SCOTCH: (Parallel) Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package'
 
