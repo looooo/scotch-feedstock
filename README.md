@@ -3,6 +3,7 @@ About scotch-pkgs-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/scotch-feedstock/blob/main/LICENSE.txt)
 
+
 About scotch-pkgs
 -----------------
 
@@ -21,6 +22,7 @@ graph partitioning, static mapping and clustering, sequential
 mesh and hypergraph partitioning, and sequential and parallel
 sparse matrix block ordering.
 
+
 About libptscotch
 -----------------
 
@@ -29,6 +31,7 @@ About libptscotch
 Package license: 
 
 Summary: PT-SCOTCH: (Parallel) Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package
+
 About ptscotch
 --------------
 
