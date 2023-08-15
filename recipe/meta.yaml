@@ -1,5 +1,5 @@
 {% set name = "scotch" %}
-{% set version = "7.0.3" %}
+{% set version = "7.0.4" %}
 {% set major = version.split('.')[0] %}
 {% set minor = version.split('.')[1] %}
 
@@ -10,7 +10,7 @@ package:
 source:
   fn: {{ name }}-v{{ version }}.tar.gz
   url: https://gitlab.inria.fr/scotch/scotch/-/archive/v{{ version }}/scotch-v{{ version }}.tar.gz
-  sha256: 5b5351f0ffd6fcae9ae7eafeccaa5a25602845b9ffd1afb104db932dd4d4f3c5
+  sha256: 8ef4719d6a3356e9c4ca7fefd7e2ac40deb69779a5c116f44da75d13b3d2c2c3
   patches:
     - 0001-Remove-unconditional-testing.patch
     - 0002-add-COMPONENT-labels-for-easier-split-installation.patch
@@ -29,12 +29,12 @@ source:
     - 0015-win-fix-unistd-time-include.patch
 
 build:
-  number: 1
+  number: 0
 
 outputs:
   - name: libscotch
     build:
-      script: ${RECIPE_DIR}/build-scotch.sh   # [unix]
+      script: ${RECIPE_DIR}/build-scotch.sh  # [unix]
       script: "%RECIPE_DIR%\\bld-scotch.bat"  # [win]
       run_exports:
         - {{ pin_subpackage('scotch', max_pin='x.x.x') }}
