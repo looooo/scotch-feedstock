@@ -30,6 +30,9 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
       -DCMAKE_PREFIX_PATH=$BUILD_PREFIX \
       -DCMAKE_INSTALL_PREFIX=$BUILD_PREFIX \
       -DCMAKE_INSTALL_LIBDIR=lib \
+      -DSCOTCH_VERSION=$(echo ${PKG_VERSION} | cut -d. -f 1) \
+      -DSCOTCH_RELEASE=$(echo ${PKG_VERSION} | cut -d. -f 2) \
+      -DSCOTCH_PATCHLEVEL=$(echo ${PKG_VERSION} | cut -d. -f 3) \
       -DCMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP=True
 
     cmake --build . --parallel ${CPU_COUNT} --config Release
@@ -58,3 +61,6 @@ cmake ${CMAKE_ARGS} \
 
 cmake --build ./build --parallel ${CPU_COUNT} --config Release
 cmake --install ./build --component=libscotch
+
+# check SCOTCH_VERSION fields
+grep VERSION $PREFIX/include/scotch.h
