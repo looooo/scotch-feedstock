@@ -37,7 +37,7 @@ outputs:
       script: ${RECIPE_DIR}/build-scotch.sh  # [unix]
       script: "%RECIPE_DIR%\\bld-scotch.bat"  # [win]
       run_exports:
-        - {{ pin_subpackage('scotch', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libscotch', max_pin='x.x.x') }}
       ignore_run_exports:
         - {{ mpi }}
     requirements:
@@ -93,7 +93,7 @@ outputs:
       script:
         - cmake --install ./build --component=libptscotch
       run_exports:
-        - {{ pin_subpackage('ptscotch', max_pin='x.x.x') }}
+        - {{ pin_subpackage('libptscotch', max_pin='x.x.x') }}
     requirements:
       build:
         - cmake
