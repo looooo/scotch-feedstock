@@ -61,3 +61,6 @@ cmake ${CMAKE_ARGS} \
 
 cmake --build ./build --parallel ${CPU_COUNT} --config Release
 cmake --install ./build --component=libscotch
+
+# check SCOTCH_VERSION fields
+grep VERSION $PREFIX/include/scotch.h
