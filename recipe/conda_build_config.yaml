@@ -2,3 +2,4 @@ mpi:
   - mpich    # [not win]
   - openmpi  # [not win]
   - msmpi    # [win]
+  - impi-devel  # [win]
