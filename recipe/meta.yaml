@@ -30,6 +30,7 @@ source:
 
 build:
   number: 2
+  skip: true  # [not win]
 
 outputs:
   - name: libscotch
