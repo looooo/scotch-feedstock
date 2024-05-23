@@ -6,7 +6,6 @@ set CXX=cl.exe
 
 :: IMPI doesn't make the include\mpi dir, but cmake FindMPI assumes it's there
 if "%mpi%"=="impi-devel" (
-  mkdir "%LIBRARY_PREFIX%\include\mpi"
   set "CMAKE_ARGS=%CMAKE_ARGS% -D MPI_HOME=%LIBRARY_PREFIX%"
   set "CMAKE_ARGS=%CMAKE_ARGS% -D MPI_LIBRARY_NAME=impi"
   set "CMAKE_ARGS=%CMAKE_ARGS% -D MPIEXEC_EXECUTABLE=%LIBRARY_PREFIX%\bin\mpiexec.bat"
@@ -37,8 +36,3 @@ cmake --build ./build --config Release
 if errorlevel 1 exit 1
 cmake --install ./build --component=libscotch
 if errorlevel 1 exit 1
-
-:: remove empty directory
-if "%mpi%"=="impi-devel" (
-  rmdir "%LIBRARY_PREFIX%\include\mpi"
-)
