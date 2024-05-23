@@ -4,7 +4,14 @@ set BISON_PKGDATADIR=%BUILD_PREFIX%\Library\share\winflexbison\data\
 set CC=cl.exe
 set CXX=cl.exe
 
+if "%mpi%"=="impi-devel" (
+  set "CMAKE_ARGS=%CMAKE_ARGS% -D MPI_C_ADDITIONAL_INCLUDE_DIRS=%LIBRARY_PREFIX%\include"
+  set "CMAKE_ARGS=%CMAKE_ARGS% -D MPI_C_LIBRARIES=impi"
+)
+
+
 cmake ^
+  %CMAKE_ARGS% ^
   -G "Ninja" ^
   -D CMAKE_BUILD_TYPE=Release ^
   -D CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
