@@ -29,7 +29,7 @@ source:
     - 0015-win-fix-unistd-time-include.patch
 
 build:
-  number: 2
+  number: 3
 
 outputs:
   - name: libscotch
@@ -43,6 +43,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('fortran') }}
         - cmake
         - make
