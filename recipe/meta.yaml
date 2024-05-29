@@ -29,7 +29,7 @@ source:
     - 0015-win-fix-unistd-time-include.patch
 
 build:
-  number: 3
+  number: 4
 
 outputs:
   - name: libscotch
@@ -102,7 +102,7 @@ outputs:
       host:
         - {{ mpi }}
       run:
-        - {{ pin_subpackage("scotch", exact=True) }}
+        - {{ pin_subpackage("libscotch", exact=True) }}
     test:
       requires:
         - cmake
