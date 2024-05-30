@@ -30,7 +30,7 @@ index 3a924e6..253ea15 100644
  # Install config files
  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/SCOTCHConfig.cmake
    ${CMAKE_CURRENT_BINARY_DIR}/SCOTCHConfigVersion.cmake
-+  COMPONENT scotch
++  COMPONENT libscotch
    DESTINATION ${LIBRARY_INSTALL_DIR}/cmake/scotch)
 diff --git a/src/esmumps/CMakeLists.txt b/src/esmumps/CMakeLists.txt
 index 62114b5..2b78e71 100644
