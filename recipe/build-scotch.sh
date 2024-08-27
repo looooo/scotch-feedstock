@@ -33,7 +33,8 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
       -DSCOTCH_VERSION=$(echo ${PKG_VERSION} | cut -d. -f 1) \
       -DSCOTCH_RELEASE=$(echo ${PKG_VERSION} | cut -d. -f 2) \
       -DSCOTCH_PATCHLEVEL=$(echo ${PKG_VERSION} | cut -d. -f 3) \
-      -DCMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP=True
+      -DCMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP=True \
+      -DINTSIZE="64"
 
     cmake --build . --parallel ${CPU_COUNT} --config Release
   )
