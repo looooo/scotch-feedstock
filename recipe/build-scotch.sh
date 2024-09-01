@@ -26,16 +26,16 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
     unset CFLAGS
 
     cmake .. \
-      -DCMAKE_BUILD_TYPE=Release \
-      -DCMAKE_PREFIX_PATH=$BUILD_PREFIX \
-      -DCMAKE_INSTALL_PREFIX=$BUILD_PREFIX \
-      -DCMAKE_INSTALL_LIBDIR=lib \
-      -DENABLE_TESTING=OFF \
-      -DSCOTCH_VERSION=$(echo ${PKG_VERSION} | cut -d. -f 1) \
-      -DSCOTCH_RELEASE=$(echo ${PKG_VERSION} | cut -d. -f 2) \
-      -DSCOTCH_PATCHLEVEL=$(echo ${PKG_VERSION} | cut -d. -f 3) \
-      -DCMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP=True \
-      -DINTSIZE="64"
+      -D CMAKE_BUILD_TYPE=Release \
+      -D CMAKE_PREFIX_PATH=$BUILD_PREFIX \
+      -D CMAKE_INSTALL_PREFIX=$BUILD_PREFIX \
+      -D CMAKE_INSTALL_LIBDIR=lib \
+      -D ENABLE_TESTING=OFF \
+      -D SCOTCH_VERSION=$(echo ${PKG_VERSION} | cut -d. -f 1) \
+      -D SCOTCH_RELEASE=$(echo ${PKG_VERSION} | cut -d. -f 2) \
+      -D SCOTCH_PATCHLEVEL=$(echo ${PKG_VERSION} | cut -d. -f 3) \
+      -D CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP=True \
+      -D INTSIZE="64"
 
     cmake --build . --parallel ${CPU_COUNT} --config Release
   )
@@ -56,9 +56,10 @@ cmake ${CMAKE_ARGS} \
   -D CMAKE_BUILD_TYPE=Release \
   -D CMAKE_SHARED_LINKER_FLAGS="$shared_flags" \
   -D CMAKE_INSTALL_PREFIX=$PREFIX \
-  -DENABLE_TESTING=OFF \
+  -D ENABLE_TESTING=OFF \
   -D BUILD_SHARED_LIBS=ON \
   -D BUILD_DUMMYSIZES=$BUILD_DUMMYSIZES \
+  -D INTSIZE="64" \
   -B build \
   .
 
